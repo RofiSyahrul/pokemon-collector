@@ -8,13 +8,11 @@ import {
 
 let apolloClient: ApolloClient<NormalizedCacheObject>
 
-console.log(process.env.NEXT_PUBLIC_BASE_URL)
-
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: new HttpLink({
-      uri: 'https://graphql-pokeapi.vercel.app/api/graphql',
+      uri: BASE_URL,
     }),
     cache: new InMemoryCache(),
   })

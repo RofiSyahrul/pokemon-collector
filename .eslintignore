@@ -1,5 +1,4 @@
 node_modules
 .next
 out
-.*.js
-**/*.js
+public/*.js

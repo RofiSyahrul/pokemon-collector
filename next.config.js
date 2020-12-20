@@ -1,9 +1,14 @@
+const withPWA = require('next-pwa')
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
-module.exports = withBundleAnalyzer({
-  webpack(config) {
+const baseConfig = withBundleAnalyzer({
+  images: {
+    domains: ['raw.githubusercontent.com'],
+  },
+  webpack(config, { webpack }) {
     config.module.rules.push({
       test: /\.(woff|woff2|eot|ttf|otf)$/,
       loader: 'file-loader',
@@ -12,6 +17,27 @@ module.exports = withBundleAnalyzer({
         esModule: false,
       },
     })
+
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        __DEV__: process.env.NODE_ENV !== 'production',
+        BASE_URL: JSON.stringify(process.env.NEXT_PUBLIC_BASE_URL),
+        BASE_IMAGE_URL: JSON.stringify(process.env.NEXT_PUBLIC_BASE_IMAGE_URL),
+      })
+    )
+
     return config
   },
+})
+
+module.exports = withPWA({
+  pwa: {
+    dest: 'public',
+    disable: process.env.NODE_ENV !== 'production',
+    register: true,
+    buildExcludes: [/fonts\/.*$/],
+    clientsClaim: true,
+    skipWaiting: true,
+  },
+  ...baseConfig,
 })
