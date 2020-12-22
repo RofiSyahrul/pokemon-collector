@@ -15,14 +15,10 @@ export function useInfiniteScroll({
 }: InfiniteScrolProps = {}): void {
   useEffect(() => {
     function handleScroll() {
-      const lastElement: HTMLElement = document.querySelector(
-        lastElementSelector
-      )
-      const firstElement: HTMLElement = document.querySelector(
-        firstElementSelector
-      )
+      const lastElement = document.querySelector(lastElementSelector)
+      const firstElement = document.querySelector(firstElementSelector)
       if (!lastElement || !firstElement) return
-      const { offsetTop, clientHeight } = lastElement
+      const { offsetTop, clientHeight } = lastElement as HTMLElement
       const { pageYOffset, innerHeight } = window
       const lastElementBottomPos = offsetTop + clientHeight
       const windowScrollPos = pageYOffset + innerHeight
@@ -30,7 +26,7 @@ export function useInfiniteScroll({
         next()
         return
       }
-      const { offsetTop: firstElementPos } = firstElement
+      const { offsetTop: firstElementPos } = firstElement as HTMLElement
       if (pageYOffset < firstElementPos) {
         prev()
       }

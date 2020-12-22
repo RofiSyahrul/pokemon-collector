@@ -1,10 +1,11 @@
-import { forwardRef } from 'react'
+import { forwardRef, useCallback } from 'react'
 import Image from 'next/image'
 import { Box, Text } from 'goods-core'
 import { ResponsiveValue } from '@styled-system/core'
 import { capitalize } from 'lib/helpers'
 import { useImageFallback } from 'hooks/image-fallback'
-import { useAppState } from 'context/app.context'
+import { useAppDispatch, useAppState } from 'context/app.context'
+import { Button } from 'goods-ui'
 
 interface PokemonCardProps extends PokemonOverview {
   nickname?: string
@@ -22,6 +23,21 @@ const PokemonCard = forwardRef<HTMLDivElement, PokemonCardProps>(
   ({ id, image, name, nickname, href }, ref) => {
     const { setRef, isVisible, src } = useImageFallback(image)
     const { ownedPokemon } = useAppState()
+    const dispatch = useAppDispatch()
+
+    const removePokemon = useCallback(
+      (e: React.MouseEvent<HTMLButtonElement>) => {
+        const { dataset } = e.currentTarget
+        const pokemon: MyPokemon = {
+          id: Number(dataset.id || ''),
+          name: dataset.name || '',
+          nickname: dataset.nickname || '',
+          image: dataset.image || '',
+        }
+        dispatch({ type: 'REMOVE_MY_POKEMON', payload: { pokemon } })
+      },
+      []
+    )
 
     return (
       <Box
@@ -82,6 +98,24 @@ const PokemonCard = forwardRef<HTMLDivElement, PokemonCardProps>(
           >
             {nickname || capitalize(name)}
           </Text>
+          {nickname && (
+            <Button
+              posi='absolute'
+              data-id={id}
+              data-name={name}
+              data-image={image}
+              data-nickname={nickname}
+              p='xxs'
+              bg='red60'
+              top='0px'
+              right='0px'
+              minH='fit-content'
+              className='remove-btn'
+              onClick={removePokemon}
+            >
+              Remove
+            </Button>
+          )}
           <Box
             as='span'
             className='total-my-pokemons'

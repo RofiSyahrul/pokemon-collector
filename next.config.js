@@ -1,4 +1,5 @@
 const withPWA = require('next-pwa')
+const pkg = require('./package.json')
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -6,7 +7,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const baseConfig = withBundleAnalyzer({
   images: {
-    domains: ['raw.githubusercontent.com'],
+    domains: ['raw.githubusercontent.com', 'github.githubassets.com'],
   },
   webpack(config, { webpack }) {
     config.module.rules.push({
@@ -24,6 +25,7 @@ const baseConfig = withBundleAnalyzer({
         BASE_URL: JSON.stringify(process.env.NEXT_PUBLIC_BASE_URL),
         BASE_IMAGE_URL: JSON.stringify(process.env.NEXT_PUBLIC_BASE_IMAGE_URL),
         IMAGE_FALLBACK: JSON.stringify(process.env.NEXT_PUBLIC_IMAGE_FALLBACK),
+        GITHUB_URL: JSON.stringify(pkg.homepage),
       })
     )
 

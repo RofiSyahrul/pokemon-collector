@@ -8,7 +8,7 @@ const title = 'Page not found'
 const ErrorPage: NextPage<ErrorProps> = ({ statusCode }) => {
   const status = `${statusCode}`.replace(/0/g, '<span>0</span>')
   return (
-    <Layout title={title} id='error-page-container'>
+    <Layout title={title} id='error-page-container' header>
       <Head>
         <meta name='robots' content='noindex' />
       </Head>

@@ -17,6 +17,7 @@ type Status = 'idle' | 'failed' | 'success'
 interface CatchPokemonHookReturn {
   isCatching: boolean
   status: Status
+  setCatching: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface NicknameInputProps extends CatchPokemonHookProps {
@@ -111,24 +112,26 @@ export function useCatchPokemon({
   pokemonId,
   pokemonImage,
 }: CatchPokemonHookProps): CatchPokemonHookReturn {
-  const { query, replace } = useRouter()
-  const { catching, name } = query
+  const { query } = useRouter()
+  const { name } = query
   const [status, setStatus] = useState<Status>('idle')
+  const [isCatching, setCatching] = useState(false)
   const { openFeedback, closeFeedback } = useFeedback()
 
   useEffect(() => {
-    if (catching) {
-      randomizeSuccessCatch(800).then(result => {
+    if (isCatching) {
+      randomizeSuccessCatch(500).then(result => {
         setStatus(result ? 'success' : 'failed')
-        replace({ query: { name } })
+        setCatching(false)
       })
     }
-  }, [catching])
+  }, [isCatching])
 
   useEffect(() => {
-    if (status === 'failed' && !catching) {
+    if (status === 'failed' && !isCatching) {
       openFeedback({
         title: 'Failed',
+        closeIcon: false,
         body: `
           <span>
             You are not successful to catch <strong>${name}</strong>
@@ -145,7 +148,7 @@ export function useCatchPokemon({
             px: 'xs',
             mr: 'xxs',
             onClick() {
-              replace({ query: { name, catching: 'true' } })
+              setCatching(true)
             },
           },
           {
@@ -159,10 +162,11 @@ export function useCatchPokemon({
           },
         ],
       })
-    } else if (status === 'success' && !catching) {
+    } else if (status === 'success' && !isCatching) {
       openFeedback({
         title: 'You catched it!',
         closeIcon: false,
+        prefix: <Icon name='approved' c='green50' />,
         body: (
           <NicknameInput
             pokemonId={pokemonId}
@@ -176,7 +180,7 @@ export function useCatchPokemon({
     } else {
       closeFeedback()
     }
-  }, [status, name, catching, pokemonId, pokemonImage])
+  }, [status, name, isCatching, pokemonId, pokemonImage])
 
-  return { isCatching: Boolean(catching), status }
+  return { isCatching, status, setCatching }
 }

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "sideEffects": false,
+  "homepage": "https://github.com/RofiSyahrul/pokemon-collector",
   "scripts": {
     "dev": "concurrently -k -p \"[{name} @ {time}]\" -n \"Next,Apollo\" -c \"cyan.bold,green.bold\" \"next dev -p 2345 --hostname 0.0.0.0\" \"npm run generate:watch\"",
     "build": "next build",

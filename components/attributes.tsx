@@ -24,6 +24,8 @@ const Attributes = memo<AttributesProps>(
             c={cItem}
             mr='xxxs'
             mb='xxxs'
+            b='1px solid'
+            bC='black30'
           >
             {item}
           </Box>

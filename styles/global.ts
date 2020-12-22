@@ -28,6 +28,12 @@ function generatePokemonTypeStyles({ colors }: DefaultTheme) {
           .pokemon-accordion-container.open button {
             background-color: ${bg};
           }
+          .pokemon-accordion.open {
+            border: 1px solid ${bg};
+          }
+          .pokemon-accordion:not(.empty) {
+            color: ${c};
+          }
           .scroll::-webkit-scrollbar-thumb {
             background-color: ${bg};
           }
@@ -245,7 +251,7 @@ const AppStyle = createGlobalStyle`
       }
 
       #error-page-container {
-        height: 100vh;
+        height: calc(100vh - 80px);
         width: 100%;
         display: grid;
         grid-template-rows: repeat(2, max-content);
@@ -303,6 +309,44 @@ const AppStyle = createGlobalStyle`
         }
       }
 
+      a.navigation {
+        position: relative;
+        width: 40px;
+        height: 40px;
+      }
+
+      a.github-link {
+        border-radius: 50%;
+        img {
+          border-radius: 50%;
+        }
+      }
+
+      a.active {
+        cursor: default;
+      }
+
+      a.my-pokemons-link {
+        margin-left: 16px;
+      }
+
+      a.my-pokemons-link.active {
+        border-bottom: 1px solid ${green50};
+      }
+
+      @media (max-width: 767.95px) {
+        a.navigation {
+          width: 32px;
+          height: 32px;
+        }
+        a.my-pokemons-link {
+          margin-left: 8px;
+        }
+        #error-page-container {
+          height: calc(100vh - 64px);
+        }
+      }
+
       @media (min-width: 481px) and (max-width: 1080.95px) {
         .about-ability-box {
           grid-column: 1 / span 2;
@@ -340,6 +384,10 @@ const AppStyle = createGlobalStyle`
             right: unset;
             left: 0px;
             border-radius: ${radius('0', 'l')};
+          }
+          .remove-btn {
+            right: unset;
+            left: 0px;
           }
         }
       }

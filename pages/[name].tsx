@@ -113,14 +113,16 @@ const customAccordionSuffix: AccordionProps['prefixComponent'] = ({
   />
 )
 
-type HeaderProps = Pick<PokemonDetail, 'name' | 'types'>
+interface HeaderProps extends Pick<PokemonDetail, 'name' | 'types'> {
+  setCatching: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-const Header = memo<HeaderProps>(({ name, types }) => {
+const Header = memo<HeaderProps>(({ name, types, setCatching }) => {
   const totalType = types.length
   const router = useRouter()
 
   const onClick = useCallback(() => {
-    router.replace({ query: { catching: 'true', name: name.toLowerCase() } })
+    setCatching(true)
   }, [])
 
   return (
@@ -201,7 +203,7 @@ const PokemonDetail: React.FC<Partial<PokemonDetailProps>> = ({
     totalNickname > 1 ? 's' : ''
   } (${totalNickname})`
 
-  const { status, isCatching } = useCatchPokemon({
+  const { status, isCatching, setCatching } = useCatchPokemon({
     pokemonImage: image,
     pokemonId: id,
   })
@@ -233,10 +235,11 @@ const PokemonDetail: React.FC<Partial<PokemonDetailProps>> = ({
   }, [])
 
   const getClassName = useCallback(
-    (idx: number, container = false) => {
+    (idx: number, container = false, empty = false) => {
       return mergeClass(
         `pokemon-accordion${container ? '-container' : ''}`,
-        openedAccordion === idx ? `open${container ? '' : ' scroll'}` : ''
+        openedAccordion === idx ? `open${container ? '' : ' scroll'}` : '',
+        empty ? 'empty' : ''
       )
     },
     [openedAccordion]
@@ -271,7 +274,7 @@ const PokemonDetail: React.FC<Partial<PokemonDetailProps>> = ({
       w
       overflow='hidden'
     >
-      <Header name={pokemonName} types={types} />
+      <Header name={pokemonName} types={types} setCatching={setCatching} />
       <Box
         as='section'
         posi='absolute'
@@ -334,7 +337,7 @@ const PokemonDetail: React.FC<Partial<PokemonDetailProps>> = ({
           <Accordion
             index={1}
             title={moveTitle}
-            className={getClassName(1)}
+            className={getClassName(1, false, totalMove === 0)}
             containerProps={{ className: getClassName(1, true) }}
             prefixComponent={customAccordionPrefix}
             suffixComponent={customAccordionSuffix}
@@ -348,7 +351,7 @@ const PokemonDetail: React.FC<Partial<PokemonDetailProps>> = ({
           <Accordion
             index={2}
             title={nicknameTitle}
-            className={getClassName(2)}
+            className={getClassName(2, false, totalNickname === 0)}
             containerProps={{ className: getClassName(2, true) }}
             prefixComponent={customAccordionPrefix}
             suffixComponent={customAccordionSuffix}
@@ -380,7 +383,13 @@ const PokemonDetail: React.FC<Partial<PokemonDetailProps>> = ({
             opacity={typeof openedAccordion === 'number' ? 0 : 1}
             transition='opacity 400ms ease-in'
           >
-            <Text as='span' rule='body' weight='bold' textAlign='center'>
+            <Text
+              as='span'
+              rule='body'
+              weight='bold'
+              textAlign='center'
+              c='inherit'
+            >
               See my pokemons
             </Text>
           </Box>

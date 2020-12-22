@@ -1,9 +1,10 @@
 import { memo } from 'react'
 import isEqual from 'react-fast-compare'
 import Head from 'next/head'
+import { DefaultTheme } from 'styled-components'
 import { Box, BoxProps, useGoods } from 'goods-core'
 import { ResponsiveValue } from '@styled-system/core'
-import { DefaultTheme } from 'styled-components'
+import Header from 'components/header'
 
 interface SEOProps {
   title?: string
@@ -18,6 +19,7 @@ interface PWAProps {
 interface LayoutProps extends SEOProps, BoxProps, PWAProps {
   isPokemonList?: boolean
   children?: React.ReactNode
+  header?: boolean
 }
 
 const defaultTitle = 'Catch Pokemons'
@@ -140,12 +142,14 @@ const Layout = memo<LayoutProps>(
     description,
     image,
     colorName,
+    header,
     ...props
   }) => {
     return (
       <>
         <SEO title={title} description={description} image={image} />
         <PWA colorName={colorName} />
+        {(isPokemonList || header) && <Header />}
         {isPokemonList ? (
           <Box
             as='main'

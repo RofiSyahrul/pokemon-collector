@@ -17,6 +17,7 @@ declare global {
   declare const BASE_URL: string
   declare const BASE_IMAGE_URL: string
   declare const IMAGE_FALLBACK: string
+  declare const GITHUB_URL: string
 
   declare namespace NodeJS {
     interface ProcessEnv {
