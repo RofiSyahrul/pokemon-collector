@@ -23,6 +23,7 @@ const baseConfig = withBundleAnalyzer({
         __DEV__: process.env.NODE_ENV !== 'production',
         BASE_URL: JSON.stringify(process.env.NEXT_PUBLIC_BASE_URL),
         BASE_IMAGE_URL: JSON.stringify(process.env.NEXT_PUBLIC_BASE_IMAGE_URL),
+        IMAGE_FALLBACK: JSON.stringify(process.env.NEXT_PUBLIC_IMAGE_FALLBACK),
       })
     )
 

@@ -1,68 +1,67 @@
 import { GetStaticProps } from 'next'
 import Link from 'next/link'
-import { initializeApollo } from 'lib/apollo-client'
-import { POKEMONS } from 'graph-query/pokemon'
-import { pokemons, pokemonsVariables } from 'types/pokemons'
 import Layout from 'components/layout'
 import PokemonCard from 'components/pokemon-card'
 import { usePagination } from 'hooks/pagination'
 import { useInfiniteScroll } from 'hooks/infinite-scroll'
+import {
+  fetchAllPokemons,
+  getAllPokemons,
+  PokemonListAndCache,
+  saveAllPokemons,
+} from 'lib/pokemons'
+import { useMemo } from 'react'
 
-interface HomeProps extends PageProps {
-  allPokemonList: pokemons['pokemons']['results']
-}
+type HomeProps = Omit<PokemonListAndCache, 'isError'>
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const client = initializeApollo()
+  const {
+    initialApolloState,
+    allPokemonList,
+    isError,
+  } = await fetchAllPokemons()
 
-  try {
-    let { data } = await client.query<pokemons, pokemonsVariables>({
-      query: POKEMONS,
-      variables: { limit: 1, offset: 0 },
-    })
-    const { count = 1 } = data?.pokemons || {}
-
-    if (count > 1) {
-      ;({ data } = await client.query<pokemons, pokemonsVariables>({
-        query: POKEMONS,
-        variables: { limit: count, offset: 0 },
-      }))
-    }
-    return {
-      props: {
-        initialApolloState: client.cache.extract(),
-        allPokemonList: data?.pokemons?.results || [],
-      },
-      revalidate: 10,
-    }
-  } catch {
-    return {
-      props: {
-        initialApolloState: client.cache.extract(),
-        allPokemonList: [],
-      },
-      revalidate: 1,
-      notFound: true,
-    }
+  return {
+    props: { initialApolloState, allPokemonList },
+    revalidate: isError ? 1 : 10,
+    notFound: isError,
   }
 }
 
+const pokemonListContainer = '#pokemon-list-container'
+const pokemonCard = 'a.pokemon-card'
+
 const Home: React.FC<HomeProps> = ({ allPokemonList = [] }) => {
-  const { currentData: pokemonList, next } = usePagination(
-    allPokemonList,
-    'pokemons-page'
-  )
+  const isBrowser = typeof window !== 'undefined'
+
+  const pokemons = useMemo<PokemonOverview[]>(() => {
+    if (!isBrowser) return []
+
+    const pokemonListFromStorage = getAllPokemons()
+    const { id } = pokemonListFromStorage[0] || { id: 0 }
+    if (id === 1) return pokemonListFromStorage
+
+    const { id: idFromSource } = allPokemonList[0] || { id: 0 }
+    if (idFromSource === 1) {
+      saveAllPokemons(allPokemonList)
+    }
+    return allPokemonList
+  }, [isBrowser])
+
+  const { currentData: pokemonList, next, prev } = usePagination(pokemons)
 
   useInfiniteScroll({
-    lastElementSelector: '#pokemon-list-container > a.pokemon-card:last-child',
+    firstElementSelector: `${pokemonListContainer} > ${pokemonCard}:first-child`,
+    lastElementSelector: `${pokemonListContainer} > ${pokemonCard}:last-child`,
     next,
+    prev,
   })
 
   return (
     <Layout isPokemonList>
       {pokemonList.map(({ id, name, image }) => (
         <Link key={`${id}-${name}`} href={`/${name}`} passHref>
-          <PokemonCard name={name} imageSrc={image} owned={0} />
+          <PokemonCard id={id} name={name} image={image} />
         </Link>
       ))}
     </Layout>

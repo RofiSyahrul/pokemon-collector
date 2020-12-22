@@ -1,18 +1,16 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 interface PaginationHookReturn<T = {}> {
   currentData: T[]
   currentPage: number
   totalPage: number
   next(): void
+  prev(): void
 }
 
-const itemsPerPage = 32
+const itemsPerPage = 24
 
-export function usePagination<T = {}>(
-  data: T[] = [],
-  key: StorageKey = ''
-): PaginationHookReturn<T> {
+export function usePagination<T = {}>(data: T[] = []): PaginationHookReturn<T> {
   const [currentPage, setCurrentPage] = useState(1)
 
   const totalPage = useMemo(() => {
@@ -20,21 +18,18 @@ export function usePagination<T = {}>(
   }, [data])
 
   const currentData = useMemo(() => {
-    return data.slice(0, currentPage * itemsPerPage)
+    const start = Math.max(currentPage - 2, 0) * itemsPerPage
+    const end = currentPage * itemsPerPage
+    return data.slice(start, end)
   }, [currentPage, data])
 
   const next = useCallback(() => {
-    setCurrentPage(prev => {
-      const nextPage = Math.min(prev + 1, totalPage)
-      localStorage.setItem(key, `${nextPage}`)
-      return nextPage
-    })
+    setCurrentPage(curr => Math.min(curr + 1, totalPage))
   }, [totalPage])
 
-  useEffect(() => {
-    const savedPage = Number(localStorage.getItem(key) || 1)
-    if (savedPage > 1) setCurrentPage(savedPage)
+  const prev = useCallback(() => {
+    setCurrentPage(curr => Math.max(curr - 1, 1))
   }, [])
 
-  return { currentData, currentPage, next, totalPage }
+  return { currentData, currentPage, next, totalPage, prev }
 }

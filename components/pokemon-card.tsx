@@ -4,12 +4,10 @@ import { Box, Text } from 'goods-core'
 import { ResponsiveValue } from '@styled-system/core'
 import { capitalize } from 'lib/helpers'
 import { useImageFallback } from 'hooks/image-fallback'
+import { useAppState } from 'context/app.context'
 
-interface PokemonCardProps {
-  imageSrc: string
-  name: string
-  owned: number
-  isMyPokemon?: boolean
+interface PokemonCardProps extends PokemonOverview {
+  nickname?: string
   href?: string
 }
 
@@ -20,13 +18,14 @@ const imgSize: ResponsiveValue<string> = {
   lg: '96px',
 }
 
-/* memo( */
 const PokemonCard = forwardRef<HTMLDivElement, PokemonCardProps>(
-  ({ imageSrc, name, owned, isMyPokemon, href }, ref) => {
-    const { setRef, isVisible, src } = useImageFallback(imageSrc)
+  ({ id, image, name, nickname, href }, ref) => {
+    const { setRef, isVisible, src } = useImageFallback(image)
+    const { ownedPokemon } = useAppState()
 
     return (
       <Box
+        id={`${id}-${name}${nickname ? `-${nickname}` : ''}`}
         className='pokemon-card'
         fDir='row'
         fAlign='center'
@@ -41,7 +40,7 @@ const PokemonCard = forwardRef<HTMLDivElement, PokemonCardProps>(
         ref={ref}
         transform={isVisible ? 'none' : 'scale(0.8)'}
         transition='transform 250ms ease-in'
-        {...(!isMyPokemon && { as: 'a', cursor: 'pointer', href })}
+        {...(!nickname && { as: 'a', cursor: 'pointer', href })}
       >
         <Box
           as='span'
@@ -57,7 +56,7 @@ const PokemonCard = forwardRef<HTMLDivElement, PokemonCardProps>(
         >
           <Image
             src={src}
-            objectFit='cover'
+            objectFit='contain'
             loading='lazy'
             layout='fill'
             alt={`Image of ${name}`}
@@ -81,7 +80,7 @@ const PokemonCard = forwardRef<HTMLDivElement, PokemonCardProps>(
             c='black40'
             cAlpha={0.96}
           >
-            {capitalize(name)}
+            {nickname || capitalize(name)}
           </Text>
           <Box
             as='span'
@@ -94,16 +93,18 @@ const PokemonCard = forwardRef<HTMLDivElement, PokemonCardProps>(
             bBotRightRad='l'
             bg='green50'
           >
-            <Text as='span' rule='caption' c='white'>
-              {`Owned: ${owned}`}
+            <Text as='span' rule='caption' fSize='12px' c='white'>
+              {nickname
+                ? capitalize(name)
+                : `Owned: ${ownedPokemon[name] || 0}`}
             </Text>
           </Box>
         </Box>
       </Box>
     )
   }
-) /* ,
-  isEqual
-) */
+)
+
+PokemonCard.displayName = 'PokemonCard'
 
 export default PokemonCard

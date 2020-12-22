@@ -122,6 +122,7 @@ module.exports = {
         'react/display-name': 0,
         'react/require-default-props': 0,
         'react/jsx-indent': 'off',
+        'react/no-danger': 'off',
         '@typescript-eslint/no-unsafe-return': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/restrict-template-expressions': 'off',
@@ -130,6 +131,7 @@ module.exports = {
         '@typescript-eslint/no-floating-promises': 'off',
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',
+        '@typescript-eslint/no-throw-literal': 'off',
         '@typescript-eslint/no-unused-vars': [
           'warn',
           {
