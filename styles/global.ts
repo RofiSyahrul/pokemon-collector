@@ -310,6 +310,13 @@ const AppStyle = createGlobalStyle`
         }
       }
 
+      @media (min-width: 481px) and (max-width: 767.95px) {
+        span.pokemon-name.nickname {
+          line-clamp: 2;
+          -webkit-line-clamp: 2;
+        }
+      }
+
       @media (max-width: 480.95px) {
         #error-page-container h1 {
           font-size: 8rem;
