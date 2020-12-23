@@ -1,6 +1,6 @@
 import { forwardRef, useCallback } from 'react'
 import Image from 'next/image'
-import { Box, Text } from 'goods-core'
+import { Box, mergeClass, Text } from 'goods-core'
 import { ResponsiveValue } from '@styled-system/core'
 import { capitalize } from 'lib/helpers'
 import { useImageFallback } from 'hooks/image-fallback'
@@ -10,6 +10,7 @@ import { Button } from 'goods-ui'
 interface PokemonCardProps extends PokemonOverview {
   nickname?: string
   href?: string
+  onClick?(e: React.MouseEvent): void
 }
 
 const imgSize: ResponsiveValue<string> = {
@@ -20,7 +21,7 @@ const imgSize: ResponsiveValue<string> = {
 }
 
 const PokemonCard = forwardRef<HTMLDivElement, PokemonCardProps>(
-  ({ id, image, name, nickname, href }, ref) => {
+  ({ id, image, name, nickname, href, onClick }, ref) => {
     const { setRef, isVisible, src } = useImageFallback(image)
     const { ownedPokemon } = useAppState()
     const dispatch = useAppDispatch()
@@ -56,7 +57,7 @@ const PokemonCard = forwardRef<HTMLDivElement, PokemonCardProps>(
         ref={ref}
         transform={isVisible ? 'none' : 'scale(0.8)'}
         transition='transform 250ms ease-in'
-        {...(!nickname && { as: 'a', cursor: 'pointer', href })}
+        {...(!nickname && { as: 'a', cursor: 'pointer', href, onClick })}
       >
         <Box
           as='span'
@@ -90,7 +91,7 @@ const PokemonCard = forwardRef<HTMLDivElement, PokemonCardProps>(
         >
           <Text
             as='span'
-            className='pokemon-name'
+            className={mergeClass('pokemon-name', nickname ? 'nickname' : '')}
             rule='title'
             dRule='subtitle'
             c='black40'
@@ -105,7 +106,8 @@ const PokemonCard = forwardRef<HTMLDivElement, PokemonCardProps>(
               data-name={name}
               data-image={image}
               data-nickname={nickname}
-              p='xxs'
+              px='xxs'
+              py='xxxs'
               bg='red60'
               top='0px'
               right='0px'

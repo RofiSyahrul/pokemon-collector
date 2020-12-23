@@ -22,7 +22,7 @@ const Header = memo(() => {
       posi='sticky'
       top='0px'
       left='0px'
-      z='appBar'
+      z={100}
       w
       h={{ xs: '64px', lg: '80px' }}
       shadow='high'

@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Box, Icon, mergeClass, Text } from 'goods-core'
 import {
@@ -12,16 +13,16 @@ import {
 } from 'goods-ui'
 import { fetchAllPokemons } from 'lib/pokemons'
 import { initializeApollo } from 'lib/apollo-client'
+import { capitalize, formatNumber } from 'lib/helpers'
 import { pokemon, pokemonVariables } from 'types/pokemon'
 import { POKEMON } from 'graph-query/pokemon'
-import Layout from 'components/layout'
-import { capitalize, formatNumber } from 'lib/helpers'
+import { useAppState } from 'context/app.context'
 import { useImageFallback } from 'hooks/image-fallback'
+import { useCatchPokemon } from 'hooks/catch-pokemon'
+import Layout from 'components/layout'
 import About from 'components/about'
 import Attributes from 'components/attributes'
-import { useAppState } from 'context/app.context'
-import { useCatchPokemon } from 'hooks/catch-pokemon'
-import Link from 'next/link'
+import PokemonDetailStyle from 'styles/pokemon-detail'
 
 type ParsedQuery = {
   name: string
@@ -204,7 +205,7 @@ const PokemonDetail: React.FC<Partial<PokemonDetailProps>> = ({
   } (${totalNickname})`
 
   const { status, isCatching, setCatching } = useCatchPokemon({
-    pokemonImage: image,
+    pokemonImage: src,
     pokemonId: id,
   })
 
@@ -352,6 +353,7 @@ const PokemonDetail: React.FC<Partial<PokemonDetailProps>> = ({
             index={2}
             title={nicknameTitle}
             className={getClassName(2, false, totalNickname === 0)}
+            id='pokemon-nickname'
             containerProps={{ className: getClassName(2, true) }}
             prefixComponent={customAccordionPrefix}
             suffixComponent={customAccordionSuffix}
@@ -402,6 +404,7 @@ const PokemonDetail: React.FC<Partial<PokemonDetailProps>> = ({
 const PokemonDetailPage: React.FC<PokemonDetailProps> = props => {
   return (
     <FeedbackProvider>
+      <PokemonDetailStyle type={props.pokemonDetail.types[0] || 'unknown'} />
       <PokemonDetail {...props} />
     </FeedbackProvider>
   )

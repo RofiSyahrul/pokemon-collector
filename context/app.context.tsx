@@ -14,6 +14,7 @@ type State = {
   myPokemonList: MyPokemon[]
   myPokemonNames: string[]
   ownedPokemon: OwnedPokemon
+  isReady: boolean
 }
 
 type Action = {
@@ -30,6 +31,7 @@ const initialState: State = {
   myPokemonList: [],
   myPokemonNames: [],
   ownedPokemon: {},
+  isReady: false,
 }
 
 const reducer = produce((draft: State, action: Action) => {
@@ -46,6 +48,7 @@ const reducer = produce((draft: State, action: Action) => {
           return store
         }, {})
       }
+      draft.isReady = true
       return
     case 'ADD_MY_POKEMON':
       if (pokemon) {

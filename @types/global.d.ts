@@ -28,7 +28,11 @@ declare global {
     }
   }
 
-  type StorageKey = 'my-pokemons' | 'all-pokemons' | (string & {})
+  type StorageKey =
+    | 'my-pokemons'
+    | 'all-pokemons'
+    | 'all-pokemons-page'
+    | (string & {})
 
   interface Storage {
     getItem(key: StorageKey): string | null

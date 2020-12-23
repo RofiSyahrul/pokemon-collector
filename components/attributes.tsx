@@ -26,6 +26,8 @@ const Attributes = memo<AttributesProps>(
             mb='xxxs'
             b='1px solid'
             bC='black30'
+            className='text'
+            maxW='100%'
           >
             {item}
           </Box>
