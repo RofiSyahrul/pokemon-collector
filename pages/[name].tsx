@@ -205,7 +205,7 @@ const PokemonDetail: React.FC<Partial<PokemonDetailProps>> = ({
   } (${totalNickname})`
 
   const { status, isCatching, setCatching } = useCatchPokemon({
-    pokemonImage: image,
+    pokemonImage: src,
     pokemonId: id,
   })
 
