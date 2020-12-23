@@ -138,6 +138,18 @@ const AppStyle = createGlobalStyle`
     }
   }
 
+  @keyframes globe {
+    from {
+      transform: rotate3d(0, 1, 0, 0deg)
+    }
+    50% {
+      transform: rotate3d(0, 1, 0, 180deg)
+    }
+    to {
+      transform: rotate3d(0, 1, 0, 0deg)
+    }
+  }
+
   .pokemon-img-box img {
     border-radius: 50%;
   }

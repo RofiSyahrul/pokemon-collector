@@ -5,6 +5,8 @@ import { DefaultTheme } from 'styled-components'
 import { Box, BoxProps, useGoods } from 'goods-core'
 import { ResponsiveValue } from '@styled-system/core'
 import Header from 'components/header'
+import Loading from 'components/loading'
+import { useAppState } from 'context/app.context'
 
 interface SEOProps {
   title?: string
@@ -145,12 +147,15 @@ const Layout = memo<LayoutProps>(
     header,
     ...props
   }) => {
+    const { isReady } = useAppState()
     return (
       <>
         <SEO title={title} description={description} image={image} />
         <PWA colorName={colorName} />
         {(isPokemonList || header) && <Header />}
-        {isPokemonList ? (
+        {!isReady ? (
+          <Loading />
+        ) : isPokemonList ? (
           <Box
             as='main'
             id='pokemon-list-container'
