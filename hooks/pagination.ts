@@ -8,23 +8,22 @@ interface PaginationHookReturn<T = {}> {
   prev(): void
 }
 
-const itemsPerPage = 24
-
 export function usePagination<T = {}>(
   data: T[] = [],
   key: StorageKey = 'all-pokemons-page'
 ): PaginationHookReturn<T> {
+  const [itemsPerPage, setItemsPerPage] = useState(24)
   const [currentPage, setCurrentPage] = useState(1)
 
   const totalPage = useMemo(() => {
     return Math.ceil(data.length / itemsPerPage)
-  }, [])
+  }, [itemsPerPage])
 
   const currentData = useMemo(() => {
     const start = Math.max(currentPage - 2, 0) * itemsPerPage
     const end = currentPage * itemsPerPage
     return data.slice(start, end)
-  }, [currentPage])
+  }, [currentPage, itemsPerPage])
 
   const next = useCallback(() => {
     setCurrentPage(curr => {
@@ -32,7 +31,7 @@ export function usePagination<T = {}>(
       localStorage.setItem(key, `${newPage}`)
       return newPage
     })
-  }, [totalPage])
+  }, [totalPage, itemsPerPage])
 
   const prev = useCallback(() => {
     setCurrentPage(curr => {
@@ -46,6 +45,9 @@ export function usePagination<T = {}>(
     const savedPage = Number(localStorage.getItem(key) || '1')
     if (!Number.isNaN(savedPage) && savedPage !== 1) {
       setCurrentPage(savedPage)
+    }
+    if (window.innerHeight > 800) {
+      setItemsPerPage(Math.ceil((window.innerHeight - 64) / 116) * 4 + 4)
     }
   }, [])
 
