@@ -371,7 +371,7 @@ const PokemonDetail: React.FC<Partial<PokemonDetailProps>> = ({
             bg={firstType}
             px='xxs'
             posi='absolute'
-            bottom='8px'
+            bottom='64px'
             left='50%'
             transform='translateX(-50%)'
             w
@@ -382,8 +382,10 @@ const PokemonDetail: React.FC<Partial<PokemonDetailProps>> = ({
             minH='48px'
             fJustify='center'
             fAlign='center'
-            opacity={typeof openedAccordion === 'number' ? 0 : 1}
             transition='opacity 400ms ease-in'
+            {...(typeof openedAccordion === 'number'
+              ? { opacity: 0, pointEvents: 'none' }
+              : { opacity: 1 })}
           >
             <Text
               as='span'
@@ -404,7 +406,7 @@ const PokemonDetail: React.FC<Partial<PokemonDetailProps>> = ({
 const PokemonDetailPage: React.FC<PokemonDetailProps> = props => {
   return (
     <FeedbackProvider>
-      <PokemonDetailStyle type={props.pokemonDetail.types[0] || 'unknown'} />
+      <PokemonDetailStyle types={props.pokemonDetail.types} />
       <PokemonDetail {...props} />
     </FeedbackProvider>
   )

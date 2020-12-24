@@ -2,13 +2,14 @@ import { createGlobalStyle, css } from 'styled-components'
 import { getInverseBw } from 'goods-core'
 
 interface PokemonDetailStyleProps {
-  type: PokemonType
+  types: PokemonType[]
 }
 
 const PokemonDetailStyle = createGlobalStyle<PokemonDetailStyleProps>`
-  ${({ theme, type }) => {
+  ${({ theme, types }) => {
     const { colors } = theme
     if (!colors) return css``
+    const [type = 'unknown'] = types
     const bg = colors[type]
     const c = getInverseBw(bg)
     const cRgba =
@@ -42,19 +43,25 @@ const PokemonDetailStyle = createGlobalStyle<PokemonDetailStyleProps>`
           background-color: ${bg};
         }
       }
-      #${type}-item-container {
-        background-color: ${bg};
-        color: ${c};
-        &:first-child {
-          border: 1px solid ${c};
-        }
-        span {
-          color: ${c};
-          font-size: 14px;
-          line-height: 20px;
-          letter-spacing: 0px;
-        }
-      }
+      ${types.map(pokemonType => {
+        const bgType = colors[pokemonType]
+        const cType = getInverseBw(bgType)
+        return `
+          #${pokemonType}-item-container {
+            background-color: ${bgType};
+            color: ${cType};
+            &:first-child {
+              border: 1px solid ${cType};
+            }
+            span {
+              color: ${cType};
+              font-size: 14px;
+              line-height: 20px;
+              letter-spacing: 0px;
+            }
+          }
+        `
+      })}
       #pokemon-nickname {
         .text {
           word-break: break-word;

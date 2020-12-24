@@ -37,5 +37,5 @@ export function useInfiniteScroll({
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [next, prev])
 }
