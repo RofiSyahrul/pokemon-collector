@@ -18,7 +18,7 @@
     "goods-core": "^1.6.13",
     "goods-ui": "^1.10.9",
     "graphql": "^15.4.0",
-    "immer": "^8.0.0",
+    "immer": "^9.0.6",
     "next": "10.0.3",
     "next-pwa": "^5.0.0",
     "nprogress": "^0.2.0",
