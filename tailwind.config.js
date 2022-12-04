@@ -123,6 +123,7 @@ function createPlugin({ addComponents, addVariant, e }) {
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
+    './src/app/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/pages/**/*.{js,ts,jsx,tsx}',
     './src/utils/**/*.{js,ts,jsx,tsx}',
@@ -153,6 +154,17 @@ module.exports = {
             transform: 'rotate(-10deg)',
           },
         },
+        globe: {
+          from: {
+            transform: 'rotate3d(0, 1, 0, 0deg)',
+          },
+          '50%': {
+            transform: 'rotate3d(0, 1, 0, 180deg)',
+          },
+          to: {
+            transform: 'rotate3d(0, 1, 0, 0deg)',
+          },
+        },
         'slide-down-accordion': {
           from: {
             maxHeight: '0px',
@@ -173,6 +185,7 @@ module.exports = {
         },
       },
       animation: {
+        'loading-globe': 'globe 800ms ease-in infinite',
         pokeball: 'pokeball 300ms ease-in infinite',
         'slide-down-accordion': 'slide-down-accordion 250ms ease-in',
         'slide-up-accordion': 'slide-up-accordion 250ms ease-in',

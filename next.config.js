@@ -8,6 +8,9 @@ const withBundleAnalyzer = bundleAnalyzer({
 })
 
 const baseConfig = withBundleAnalyzer({
+  experimental: {
+    appDir: true,
+  },
   images: {
     domains: ['raw.githubusercontent.com', 'github.githubassets.com'],
   },

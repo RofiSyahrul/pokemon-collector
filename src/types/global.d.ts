@@ -1,16 +1,10 @@
+import type { ParsedUrlQuery } from 'querystring'
+
+import type { ReactNode } from 'react'
+
 import type { NormalizedCacheObject } from '@apollo/client'
 
 import type pokemonColors from '@/constants/pokemon-colors'
-
-declare module '*.woff' {
-  declare const url: string
-  export default url
-}
-
-declare module '*.woff2' {
-  declare const url: string
-  export default url
-}
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -41,6 +35,23 @@ declare global {
     getItem(key: StorageKey): string | null
     removeItem(key: StorageKey): void
     setItem(key: StorageKey, value: string): void
+  }
+
+  type AppPageSearchParams = {
+    [key: string]: string | string[] | undefined
+  }
+
+  interface LayoutProps<Params extends ParsedUrlQuery = ParsedUrlQuery> {
+    children: ReactNode
+    params?: Params
+  }
+
+  interface AppPageProps<
+    Params extends ParsedUrlQuery = ParsedUrlQuery,
+    SearchParams extends AppPageSearchParams = AppPageSearchParams
+  > {
+    params?: Params
+    searchParams?: SearchParams
   }
 
   interface PageProps {

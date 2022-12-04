@@ -23,7 +23,7 @@
   "css.lint.unknownAtRules": "ignore",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
-    "source.fixAll.tslint": true,
+    "source.fixAll.tslint": true
   },
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
@@ -44,7 +44,7 @@
     "typescript",
     "typescriptreact"
   ],
-  "typescript.tsdk": "./node_modules/typescript/lib",
+  "typescript.tsdk": "node_modules/typescript/lib",
   "workbench.colorCustomizations": {},
   "html.autoClosingTags": true,
   "extensions.ignoreRecommendations": false,
@@ -57,5 +57,6 @@
   "codemetrics.nodeconfiguration.SwitchStatement": 0,
   "codemetrics.nodeconfiguration.BreakStatement": 0,
   "codemetrics.nodeconfiguration.ObjectLiteralExpression": 0,
-  "codemetrics.nodeconfiguration.ArrowFunction": 0
+  "codemetrics.nodeconfiguration.ArrowFunction": 0,
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

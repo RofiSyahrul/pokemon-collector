@@ -1,0 +1,71 @@
+@keyframes skeleton__shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton,
+.skeleton::before {
+  --skeleton-bg-primary: var(--color-neutral-dim2);
+  --skeleton-bg-secondary: var(--color-neutral-dim1);
+}
+
+.skeleton {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: var(--skeleton-bg-primary);
+  cursor: progress;
+}
+
+.skeleton::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  background-image: linear-gradient(
+    90deg,
+    var(--skeleton-bg-primary) 0%,
+    var(--skeleton-bg-secondary) 52.22%,
+    var(--skeleton-bg-primary) 99.9%
+  );
+  transform: translateX(-100%);
+  animation: skeleton__shimmer 2s infinite;
+  content: '';
+}
+
+.skeleton_rounded {
+  border-radius: 4px;
+}
+
+.skeleton_pill {
+  border-radius: 10000px;
+}
+
+.skeleton_circle {
+  aspect-ratio: 1 / 1;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.skeleton_rounded,
+.skeleton_pill {
+  width: 100%;
+  height: 1rem;
+}
+
+.skeleton.skeleton_has-aspect-ratio {
+  height: unset;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after {
+    background-image: none;
+    animation: none;
+  }
+}

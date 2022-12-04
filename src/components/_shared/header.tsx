@@ -3,7 +3,7 @@ import type { FC } from 'react'
 import clsx from 'clsx'
 import Image from 'next/legacy/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 import ArrowIcon from '@/icons/arrow'
 import GithubIcon from '@/icons/github'

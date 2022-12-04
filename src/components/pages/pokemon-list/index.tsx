@@ -1,16 +1,18 @@
 import type { FC } from 'react'
 
-import Header from '@/components/_shared/header'
-import Layout from '@/components/_shared/layout'
 import PokemonCard from '@/components/_shared/pokemon-card'
+import type { PokemonListAndCache } from '@/lib/pokeomon.server'
 
-import type { HomeProps } from './types'
+interface PokemonListPageProps extends Pick<PokemonListAndCache, 'pokemons'> {
+  totalPage: number
+  page?: number
+}
 
 const TOTAL_PRIORITIZED_IMAGE = 7
 
-const Homepage: FC<HomeProps> = ({ pokemons }) => {
+const PokemonListPage: FC<PokemonListPageProps> = ({ pokemons }) => {
   return (
-    <Layout header={<Header activeLink='home' />} isPokemonList>
+    <main className='w-full p-4 lg:p-6 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 grid-flow-row'>
       {pokemons.map(({ id, image, name }, index) => (
         <PokemonCard
           href={`/${name}`}
@@ -21,8 +23,8 @@ const Homepage: FC<HomeProps> = ({ pokemons }) => {
           priority={index < TOTAL_PRIORITIZED_IMAGE}
         />
       ))}
-    </Layout>
+    </main>
   )
 }
 
-export default Homepage
+export default PokemonListPage

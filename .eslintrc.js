@@ -180,6 +180,18 @@ module.exports = {
           },
         ],
         '@typescript-eslint/no-misused-promises': 'off',
+        '@typescript-eslint/no-restricted-imports': [
+          'error',
+          {
+            paths: [
+              {
+                name: '@/components/_shared/meta-head',
+                message:
+                  'MetaHead only could be imported in src/app/**/head.tsx file',
+              },
+            ],
+          },
+        ],
         '@typescript-eslint/ban-types': [
           'error',
           {
@@ -273,6 +285,12 @@ module.exports = {
         'jsx-a11y/label-has-associated-control': 'off',
         '@typescript-eslint/naming-convention': 'off',
         '@typescript-eslint/await-thenable': 'off',
+      },
+    },
+    {
+      files: ['src/app/**/head.tsx'],
+      rules: {
+        '@typescript-eslint/no-restricted-imports': 'off',
       },
     },
   ],

@@ -1,34 +1,17 @@
-import type { DetailedHTMLProps, FC, HTMLAttributes, ReactNode } from 'react'
-
-import clsx from 'clsx'
-import Head from 'next/head'
-
 import pokemonColors from '@/constants/pokemon-colors'
 
-interface SEOProps {
-  title?: string
+interface MetaHeadProps {
+  colorName?: keyof typeof pokemonColors
   description?: string
   image?: string
+  pathname?: string
+  title?: string
 }
 
-interface PWAProps {
-  colorName?: keyof typeof pokemonColors
-}
-
-interface LayoutProps
-  extends SEOProps,
-    PWAProps,
-    DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
-  className?: string
-  children?: ReactNode
-  header?: ReactNode
-  isPokemonList?: boolean
-}
-
-const defaultTitle = 'Catch Pokemons'
 const defaultDescription = 'Catch and collect pokemons from various places'
 const url = 'https://catch-pokemons.rofisyahrul.com'
 const defaultImage = `${url}/pokeball.png`
+const defaultTitle = 'Catch Pokemons'
 const creator = '@RofiSyahrul'
 
 const keywords = [
@@ -41,16 +24,19 @@ const keywords = [
   'typescript',
 ].join(', ')
 
-const SEO: FC<SEOProps> = ({
-  title = defaultTitle,
+export default function MetaHead({
+  colorName,
   description = defaultDescription,
   image = defaultImage,
-}) => {
+  pathname = '',
+  title = defaultTitle,
+}: MetaHeadProps) {
+  const themeColor = colorName ? pokemonColors[colorName] : '#075985'
   const pageTitle =
     title === defaultTitle ? title : `${title} | ${defaultTitle}`
 
   return (
-    <Head>
+    <>
       <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       <meta charSet='utf-8' />
       <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
@@ -58,13 +44,13 @@ const SEO: FC<SEOProps> = ({
       <title key='title'>{pageTitle}</title>
       <meta name='author' content='Rofi' />
       <meta name='keywords' content={`${keywords}, ${title}`} />
-      <link key='canonical' rel='canonical' href={url} />
+      <link key='canonical' rel='canonical' href={`${url}${pathname}`} />
       <meta name='description' content={description} />
       <meta name='image' content={image} />
 
       <meta name='og:title' property='og:title' content={pageTitle} />
       <meta name='og:type' property='og:type' content='website' />
-      <meta name='og:url' property='og:url' content={url} />
+      <meta name='og:url' property='og:url' content={`${url}${pathname}`} />
       <meta
         name='og:description'
         property='og:description'
@@ -78,15 +64,7 @@ const SEO: FC<SEOProps> = ({
       <meta name='twitter:title' content={pageTitle} />
       <meta name='twitter:description' content={description} />
       <meta name='twitter:image' content={image} />
-    </Head>
-  )
-}
 
-const PWA: React.FC<PWAProps> = ({ colorName }) => {
-  const themeColor = colorName ? pokemonColors[colorName] : '#075985'
-
-  return (
-    <Head>
       <link
         rel='apple-touch-icon'
         sizes='180x180'
@@ -127,39 +105,6 @@ const PWA: React.FC<PWAProps> = ({ colorName }) => {
       />
       <meta name='msapplication-config' content='/browserconfig.xml' />
       <meta name='theme-color' content={themeColor} />
-    </Head>
-  )
-}
-
-const Layout: FC<LayoutProps> = ({
-  children,
-  className,
-  colorName,
-  description,
-  header,
-  isPokemonList,
-  image,
-  title,
-  ...props
-}) => {
-  return (
-    <>
-      <SEO title={title} description={description} image={image} />
-      <PWA colorName={colorName} />
-      {header}
-      <main
-        className={clsx(
-          isPokemonList
-            ? 'w-full p-4 lg:p-6 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 grid-flow-row'
-            : '',
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </main>
     </>
   )
 }
-
-export default Layout
