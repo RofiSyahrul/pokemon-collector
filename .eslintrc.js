@@ -1,3 +1,14 @@
+const restrictedImports = {
+  metaHead: {
+    name: '@/components/_shared/meta-head',
+    message: 'MetaHead only could be imported in src/app/**/head.tsx file',
+  },
+  layout: {
+    name: '@/components/_shared/layout',
+    message: 'Layout component could not be imported in src/app/** files',
+  },
+}
+
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
   parser: '@typescript-eslint/parser',
@@ -183,13 +194,7 @@ module.exports = {
         '@typescript-eslint/no-restricted-imports': [
           'error',
           {
-            paths: [
-              {
-                name: '@/components/_shared/meta-head',
-                message:
-                  'MetaHead only could be imported in src/app/**/head.tsx file',
-              },
-            ],
+            paths: [restrictedImports.metaHead],
           },
         ],
         '@typescript-eslint/ban-types': [
@@ -288,9 +293,25 @@ module.exports = {
       },
     },
     {
+      files: ['src/app/**/*.ts', 'src/app/**/*.tsx'],
+      rules: {
+        '@typescript-eslint/no-restricted-imports': [
+          'error',
+          {
+            paths: [restrictedImports.layout, restrictedImports.metaHead],
+          },
+        ],
+      },
+    },
+    {
       files: ['src/app/**/head.tsx'],
       rules: {
-        '@typescript-eslint/no-restricted-imports': 'off',
+        '@typescript-eslint/no-restricted-imports': [
+          'error',
+          {
+            paths: [restrictedImports.layout],
+          },
+        ],
       },
     },
   ],

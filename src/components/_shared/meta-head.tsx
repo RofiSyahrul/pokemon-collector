@@ -1,6 +1,6 @@
 import pokemonColors from '@/constants/pokemon-colors'
 
-interface MetaHeadProps {
+export interface MetaHeadProps {
   colorName?: keyof typeof pokemonColors
   description?: string
   image?: string
