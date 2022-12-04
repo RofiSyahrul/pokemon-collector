@@ -74,11 +74,13 @@ const PokemonCard = forwardRef<HTMLAnchorElement, PokemonCardProps>(
               name={name}
               loadingPlaceholder={
                 <Skeleton
-                  className={styles.card__label}
                   height={24}
                   style={{
                     backgroundColor: 'var(--skeleton-bg-primary)',
                     borderRadius: '0.5rem 0 0.5rem 0',
+                    position: 'absolute',
+                    bottom: 0,
+                    right: 0,
                   }}
                   width={60}
                 />
