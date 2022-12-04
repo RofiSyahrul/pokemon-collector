@@ -8,7 +8,7 @@ import type { FC } from 'react'
 import { useRouter } from 'next/router'
 import NProgress from 'nprogress'
 
-import { AppProvider } from '@/context/app.context'
+import AppInit from '@/store/app.init'
 
 interface AppProps {
   Component: FC<PageProps>
@@ -43,9 +43,10 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
   }, [])
 
   return (
-    <AppProvider>
+    <>
+      <AppInit />
       <Component {...pageProps} />
-    </AppProvider>
+    </>
   )
 }
 

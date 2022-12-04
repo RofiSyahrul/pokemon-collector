@@ -1,10 +1,12 @@
+'use client'
+
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ChangeEventHandler, FC, FormEventHandler } from 'react'
 
 import Image from 'next/legacy/image'
 
 import Input from '@/components/_shared/input'
-import { useAppDispatch, useAppState } from '@/context/app.context'
+import { addMyPokemon, useMyPokemonNames } from '@/store/app.store'
 import capitalize from '@/utils/capitalize'
 
 interface NicknameFormProps {
@@ -24,8 +26,7 @@ const NicknameForm: FC<NicknameFormProps> = ({
 }) => {
   const capitalizedPokemonName = capitalize(pokemonName)
 
-  const dispatch = useAppDispatch()
-  const { myPokemonNames } = useAppState()
+  const myPokemonNames = useMyPokemonNames()
   const [errorMessage, setErrorMessage] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -49,16 +50,11 @@ const NicknameForm: FC<NicknameFormProps> = ({
       const nickname = formData.get('nickname')
       if (typeof nickname !== 'string' || !nickname) return
 
-      dispatch({
-        type: 'ADD_MY_POKEMON',
-        payload: {
-          pokemon: {
-            id: pokemonID,
-            image: pokemonImage,
-            name: pokemonName,
-            nickname,
-          },
-        },
+      addMyPokemon({
+        id: pokemonID,
+        image: pokemonImage,
+        name: pokemonName,
+        nickname,
       })
 
       e.currentTarget.reset()

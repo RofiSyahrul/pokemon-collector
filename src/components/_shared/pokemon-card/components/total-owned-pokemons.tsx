@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react'
 
-import { useAppState } from '@/context/app.context'
+import { useAppIsReady, useOwnedPokemon } from '@/store/app.store'
 
 import styles from '../_styles.module.css'
 
@@ -15,14 +15,13 @@ export default function TotalOwnedPokemons({
   loadingPlaceholder,
   name,
 }: Props) {
-  const { isReady, ownedPokemon } = useAppState()
+  const isReady = useAppIsReady()
+  const owned = useOwnedPokemon(name)
 
   return (
     <>
       {isReady ? (
-        <div className={styles.card__label}>{`Owned: ${
-          ownedPokemon[name] ?? 0
-        }`}</div>
+        <div className={styles.card__label}>{`Owned: ${owned}`}</div>
       ) : (
         loadingPlaceholder
       )}

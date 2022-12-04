@@ -5,7 +5,7 @@ import type { ReactNode } from 'react'
 import clsx from 'clsx'
 
 import PokemonCard from '@/components/_shared/pokemon-card'
-import { useAppState } from '@/context/app.context'
+import { useAppIsReady, useMyPokemonList } from '@/store/app.store'
 
 interface MyPokemonPageProps {
   loadingPlaceholder: ReactNode
@@ -14,7 +14,8 @@ interface MyPokemonPageProps {
 export default function MyPokemonsPage({
   loadingPlaceholder,
 }: MyPokemonPageProps) {
-  const { isReady, myPokemonList } = useAppState()
+  const isReady = useAppIsReady()
+  const myPokemonList = useMyPokemonList()
 
   if (!isReady) return <>{loadingPlaceholder}</>
 

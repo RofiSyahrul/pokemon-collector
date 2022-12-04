@@ -9,9 +9,9 @@ import Link from 'next/link'
 import Accordion from '@/components/_shared/accordion'
 import Layout from '@/components/_shared/layout'
 import Popup from '@/components/_shared/popup'
-import { useAppState } from '@/context/app.context'
 import ApprovedIcon from '@/icons/approved'
 import RejectedIcon from '@/icons/rejected'
+import { useMyPokemonList } from '@/store/app.store'
 import getPokemonBg from '@/utils/styles/get-pokemon-bg'
 import getPokemonColor from '@/utils/styles/get-pokemon-color'
 
@@ -44,7 +44,7 @@ const PokemonDetailPage: FC<PokemonDetailPageProps> = ({ pokemonDetail }) => {
     weight,
   } = pokemonDetail
 
-  const { myPokemonList } = useAppState()
+  const myPokemonList = useMyPokemonList()
   const { catchPokemon, catchStatus, isCatching, resetCatchStatus } =
     useCatchPokemon()
 

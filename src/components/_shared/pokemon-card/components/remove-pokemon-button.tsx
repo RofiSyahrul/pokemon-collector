@@ -5,7 +5,7 @@ import { useCallback } from 'react'
 
 import clsx from 'clsx'
 
-import { useAppDispatch } from '@/context/app.context'
+import { removeMyPokemon } from '@/store/app.store'
 
 interface RemovePokemonButtonProps {
   className?: string
@@ -16,17 +16,10 @@ export default function RemovePokemonButton({
   className,
   nickname,
 }: RemovePokemonButtonProps) {
-  const dispatch = useAppDispatch()
-
   const handleClick = useCallback<MouseEventHandler<HTMLButtonElement>>(e => {
     e.stopPropagation()
     const { dataset } = e.currentTarget
-    dispatch({
-      type: 'REMOVE_MY_POKEMON',
-      payload: {
-        nickname: dataset.nickname ?? '',
-      },
-    })
+    removeMyPokemon(dataset.nickname ?? '')
   }, [])
 
   return (
