@@ -20,7 +20,7 @@ export default function useCatchPokemon(): UseCatchPokemonReturn {
   const catchPokemon = useCallback(async () => {
     setIsCatching(true)
     await delay(500)
-    const isSuccess = Math.random() > SUCCESS_PROBABILITY
+    const isSuccess = Math.random() <= SUCCESS_PROBABILITY
     setCatchStatus(isSuccess ? 'success' : 'failed')
     setIsCatching(false)
   }, [])

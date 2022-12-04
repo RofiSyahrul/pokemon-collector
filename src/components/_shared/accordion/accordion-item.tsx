@@ -34,7 +34,7 @@ const AccordionItem: FC<AccordionItemProps> = ({
   const summaryClasses = useMemo(() => {
     if (!pokemonType) {
       const commonClassName = 'hover:bg-primary-bright hover:text-neutral-dim'
-      if (isShown) {
+      if (isOpen) {
         return `${commonClassName} bg-primary-bright text-neutral-dim`
       }
       return `${commonClassName} hover:rounded-full`
@@ -45,7 +45,7 @@ const AccordionItem: FC<AccordionItemProps> = ({
       ...getPokemonColor(pokemonType, 'hover-inversed'),
     }
 
-    if (isShown) {
+    if (isOpen) {
       classes = {
         ...classes,
         ...getPokemonBg(pokemonType),
@@ -56,20 +56,20 @@ const AccordionItem: FC<AccordionItemProps> = ({
     }
 
     return classes
-  }, [isShown, pokemonType])
+  }, [isOpen, pokemonType])
 
   const contentClasses = useMemo(() => {
     if (!pokemonType) {
       return 'details-open:scrollbar-thumb-neutral-bright2 details-open:border-primary-bright'
     }
 
-    if (!isShown) return ''
+    if (!isOpen) return ''
 
     return {
       ...getPokemonBorder(pokemonType),
       ...getPokemonScrollbar(pokemonType),
     }
-  }, [isShown, pokemonType])
+  }, [isOpen, pokemonType])
 
   const handleClick = useCallback<MouseEventHandler<HTMLElement>>(
     e => {
@@ -95,7 +95,7 @@ const AccordionItem: FC<AccordionItemProps> = ({
   }, [isOpen])
 
   return (
-    <details open={isShown} {...props}>
+    <details open={isOpen && isShown} {...props}>
       <summary
         className={clsx(
           'marker:hidden flex items-center justify-between gap-2 w-full p-2',

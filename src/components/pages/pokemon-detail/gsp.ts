@@ -3,10 +3,10 @@ import type { GetStaticPaths, GetStaticProps } from 'next'
 import pokemonColors from '@/constants/pokemon-colors'
 import { fetchAllPokemonNames, fetchPokemonDetail } from '@/lib/pokeomon.server'
 import type { PokemonDetailResponse } from '@/lib/pokeomon.server'
-import enumerate from '@/utils/enumerate'
-
-import formatNumber from '@/utils/formatNumber'
 import capitalize from '@/utils/capitalize'
+import enumerate from '@/utils/enumerate'
+import formatNumber from '@/utils/formatNumber'
+
 import type {
   EnrichedPokemonDetail,
   PokemonDetailPageParams,

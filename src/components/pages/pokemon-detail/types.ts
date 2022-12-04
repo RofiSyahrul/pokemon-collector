@@ -1,4 +1,4 @@
-import { ParsedUrlQuery } from 'querystring'
+import type { ParsedUrlQuery } from 'querystring'
 
 export interface EnrichedPokemonDetail
   extends Omit<PokemonDetail, 'abilities' | 'height' | 'weight'> {

@@ -1,4 +1,4 @@
-import {
+import React, {
   createContext,
   useContext,
   useEffect,
@@ -6,7 +6,8 @@ import {
   useReducer,
 } from 'react'
 
-import produce, { Immutable } from 'immer'
+import type { Immutable } from 'immer'
+import { produce } from 'immer'
 
 import { getMyPokemons, saveMyPokemons } from '@/lib/pokemons-storage'
 
@@ -116,7 +117,9 @@ function useApp() {
   return contextValue
 }
 
-export const AppProvider: React.FC = ({ children }) => {
+export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const { state, dispatch } = useApp()
   return (
     <AppDispatchContext.Provider value={dispatch}>

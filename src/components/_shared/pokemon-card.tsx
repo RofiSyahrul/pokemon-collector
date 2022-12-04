@@ -1,12 +1,13 @@
 import { forwardRef, useCallback, useMemo } from 'react'
 import type { MouseEvent, MouseEventHandler } from 'react'
 
-import Image from 'next/image'
+import clsx from 'clsx'
+import Image from 'next/legacy/image'
+import Link from 'next/link'
 
 import { useAppDispatch, useAppState } from '@/context/app.context'
-
 import capitalize from '@/utils/capitalize'
-import clsx from 'clsx'
+
 import styles from './pokemon-card.module.css'
 
 interface PokemonCardProps extends PokemonOverview {
@@ -67,10 +68,12 @@ const PokemonCard = forwardRef<HTMLAnchorElement, PokemonCardProps>(
         <div className={styles['card__image-container']}>
           <Image
             alt={`Image of ${name}`}
+            blurDataURL={IMAGE_FALLBACK}
             height={96}
             layout='intrinsic'
             loading={priority ? 'eager' : 'lazy'}
             objectFit='contain'
+            placeholder={priority ? undefined : 'blur'}
             priority={priority}
             src={image}
             width={96}
@@ -78,14 +81,14 @@ const PokemonCard = forwardRef<HTMLAnchorElement, PokemonCardProps>(
         </div>
         <div className={styles.card__content}>
           {href ? (
-            <a
+            <Link
               className={titleClassName}
               ref={ref}
               href={href}
               onClick={onClick}
             >
               {title}
-            </a>
+            </Link>
           ) : (
             <span className={titleClassName}>{title}</span>
           )}

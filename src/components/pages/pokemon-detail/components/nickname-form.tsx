@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ChangeEventHandler, FC, FormEventHandler } from 'react'
 
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 import Input from '@/components/_shared/input'
 import { useAppDispatch, useAppState } from '@/context/app.context'

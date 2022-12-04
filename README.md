@@ -9,13 +9,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 1. Install all dependencies and devDependencies
 
 ```bash
-npm install
+yarn install
 ```
 
 2. Run the development server
 
 ```bash
-npm run dev
+yarn dev
 ```
 
 3. Open [http://localhost:2345](http://localhost:2345) with your browser to see the result.

@@ -164,9 +164,11 @@ module.exports = {
         'slide-up-accordion': {
           from: {
             maxHeight: 'calc(100vh - 400px)',
+            opacity: 1,
           },
           to: {
             maxHeight: '0px',
+            opacity: 0,
           },
         },
       },

@@ -1,13 +1,13 @@
 import type { FC } from 'react'
 
 import clsx from 'clsx'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
+import ArrowIcon from '@/icons/arrow'
 import GithubIcon from '@/icons/github'
 import HomeIcon from '@/icons/home'
-import ArrowIcon from '@/icons/arrow'
 
 interface HeaderProps {
   activeLink?: 'home' | 'my-pokemons'
@@ -21,48 +21,44 @@ const Navigation: FC<HeaderProps> = ({ activeLink }) => {
     <nav>
       <ul className='flex items-center h-full p-0 list-none gap-2 lg:gap-4'>
         <li>
-          <Link href='/' passHref>
-            <a
-              aria-current={isHomepage ? 'page' : undefined}
-              className={clsx(
-                'block relative w-8 h-8 lg:w-10 lg:h-10',
-                'current-page:text-primary-bright'
-              )}
-              href='#!'
-              title='Go to homepage'
-            >
-              <HomeIcon className='w-full h-full' />
-              <span className='sr-only'>Home</span>
-            </a>
+          <Link
+            aria-current={isHomepage ? 'page' : undefined}
+            className={clsx(
+              'block relative w-8 h-8 lg:w-10 lg:h-10',
+              'current-page:text-primary-bright'
+            )}
+            href='/'
+            title='Go to homepage'
+          >
+            <HomeIcon className='w-full h-full' />
+            <span className='sr-only'>Home</span>
           </Link>
         </li>
         <li>
-          <Link href='/my-pokemons' passHref>
-            <a
-              aria-current={isMyPokemonsPage ? 'page' : undefined}
-              className={clsx(
-                'block relative w-8 h-8 lg:w-10 lg:h-10',
-                'current-page:cursor-default',
-                'current-page:pointer-events-none',
-                'current-page:text-primary-bright',
-                'current-page:border-b',
-                'current-page:border-solid',
-                'current-page:border-primary-bright'
-              )}
-              href='#!'
-              title='Go to my pokemons page'
-            >
-              <Image
-                alt='My Pokemons'
-                height={40}
-                layout='intrinsic'
-                loading='eager'
-                objectFit='contain'
-                src={IMAGE_FALLBACK}
-                width={40}
-              />
-              <span className='sr-only'>My Pokemons</span>
-            </a>
+          <Link
+            aria-current={isMyPokemonsPage ? 'page' : undefined}
+            className={clsx(
+              'block relative w-8 h-8 lg:w-10 lg:h-10',
+              'current-page:cursor-default',
+              'current-page:pointer-events-none',
+              'current-page:text-primary-bright',
+              'current-page:border-b',
+              'current-page:border-solid',
+              'current-page:border-primary-bright'
+            )}
+            href='/my-pokemons'
+            title='Go to my pokemons page'
+          >
+            <Image
+              alt='My Pokemons'
+              height={40}
+              layout='intrinsic'
+              loading='eager'
+              objectFit='contain'
+              src={IMAGE_FALLBACK}
+              width={40}
+            />
+            <span className='sr-only'>My Pokemons</span>
           </Link>
         </li>
       </ul>

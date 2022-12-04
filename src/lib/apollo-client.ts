@@ -1,10 +1,5 @@
-import { useMemo } from 'react'
-import {
-  ApolloClient,
-  HttpLink,
-  InMemoryCache,
-  NormalizedCacheObject,
-} from '@apollo/client'
+import type { NormalizedCacheObject } from '@apollo/client'
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 
 let apolloClient: ApolloClient<NormalizedCacheObject>
 
@@ -32,11 +27,4 @@ export function initializeApollo(
 
   if (!apolloClient) apolloClient = _apolloClient
   return _apolloClient
-}
-
-export function useApollo(
-  initialState: NormalizedCacheObject | null = null
-): ApolloClient<NormalizedCacheObject> {
-  const store = useMemo(() => initializeApollo(initialState), [initialState])
-  return store
 }

@@ -1,11 +1,11 @@
 import type { FC } from 'react'
 
+import clsx from 'clsx'
 import type { ErrorProps } from 'next/error'
 import Head from 'next/head'
 
-import clsx from 'clsx'
-import Layout from '@/components/_shared/layout'
 import Header from '@/components/_shared/header'
+import Layout from '@/components/_shared/layout'
 
 const ErrorPage: FC<ErrorProps> = ({ statusCode, title = 'ERROR' }) => {
   const status = `${statusCode}`.replace(

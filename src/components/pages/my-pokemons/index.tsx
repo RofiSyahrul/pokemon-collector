@@ -32,8 +32,9 @@ const MyPokemonsPage: React.FC = () => {
     <Layout header={header} isPokemonList title={title}>
       {myPokemonList.map(({ id, image, name, nickname }) => (
         <PokemonCard
-          key={`${nickname}-${id}`}
+          href={`/${name}`}
           id={id}
+          key={`${nickname}-${id}`}
           image={image}
           name={name}
           nickname={nickname}

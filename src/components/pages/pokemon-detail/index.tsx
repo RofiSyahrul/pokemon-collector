@@ -3,7 +3,7 @@ import type { FC } from 'react'
 
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Link from 'next/link'
 
 import Accordion from '@/components/_shared/accordion'
@@ -23,7 +23,10 @@ import type { PokemonDetailPageProps } from './types'
 
 const NicknameForm = dynamic(() => import('./components/nickname-form'), {
   ssr: false,
-}) as typeof import('./components/nickname-form').default
+})
+
+const IMAGE_SIZE = 192
+const IMAGE_FALLBACK_SIZE = 100
 
 const PokemonDetailPage: FC<PokemonDetailPageProps> = ({ pokemonDetail }) => {
   const {
@@ -115,16 +118,16 @@ const PokemonDetailPage: FC<PokemonDetailPageProps> = ({ pokemonDetail }) => {
             key={`${isCatching}`}
             alt={pokemonName}
             className={clsx(
-              'w-full h-full hover:scale-150 transition-transform',
-              isCatching && 'animate-pokeball'
+              'w-full h-full transition-transform',
+              isCatching ? 'animate-pokeball' : 'hover:scale-150'
             )}
-            height={192}
+            height={isCatching ? IMAGE_FALLBACK_SIZE : IMAGE_SIZE}
             layout='intrinsic'
             loading='eager'
             objectFit='contain'
             priority
             src={isCatching ? IMAGE_FALLBACK : image}
-            width={192}
+            width={isCatching ? IMAGE_FALLBACK_SIZE : IMAGE_SIZE}
           />
           <span className='sr-only'>{`Catch ${pokemonName}`}</span>
         </button>
@@ -166,22 +169,18 @@ const PokemonDetailPage: FC<PokemonDetailPageProps> = ({ pokemonDetail }) => {
           </Accordion.Item>
         </Accordion.Group>
         <div className='flex items-center justify-center w-full mt-4'>
-          <Link href='/my-pokemons' passHref>
-            <a
-              href='#!'
-              className={clsx(
-                'flex items-center justify-center transition-opacity',
-                'w-full max-w-xs min-h-[3rem] hover:brightness-75',
-                'px-2 text-inherit cursor-pointer rounded-lg text-base font-bold',
-                getPokemonBg(firstType),
-                getPokemonColor(firstType, 'inversed'),
-                activeAccordion
-                  ? 'opacity-0 pointer-events-none'
-                  : 'opacity-100'
-              )}
-            >
-              See my pokemons
-            </a>
+          <Link
+            href='/my-pokemons'
+            className={clsx(
+              'flex items-center justify-center transition-opacity',
+              'w-full max-w-xs min-h-[3rem] hover:brightness-75',
+              'px-2 text-inherit cursor-pointer rounded-lg text-base font-bold',
+              getPokemonBg(firstType),
+              getPokemonColor(firstType, 'inversed'),
+              activeAccordion ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            )}
+          >
+            See my pokemons
           </Link>
         </div>
       </section>
@@ -221,7 +220,7 @@ const PokemonDetailPage: FC<PokemonDetailPageProps> = ({ pokemonDetail }) => {
           </>
         }
       >
-        {'You are failed to catch '}
+        {'Failed to catch '}
         <strong>{pokemonName}</strong>
       </Popup>
     </Layout>

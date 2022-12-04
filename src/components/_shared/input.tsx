@@ -1,4 +1,5 @@
 import { forwardRef, useCallback, useState } from 'react'
+import type { FocusEventHandler } from 'react'
 
 import clsx from 'clsx'
 
@@ -38,7 +39,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     const [isFocused, setIsFocused] = useState(false)
 
-    const handleFocus = useCallback(
+    const handleFocus = useCallback<FocusEventHandler<HTMLInputElement>>(
       e => {
         setIsFocused(true)
         if (onFocus) onFocus(e)
@@ -46,7 +47,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       [onFocus]
     )
 
-    const handleBlur = useCallback(
+    const handleBlur = useCallback<FocusEventHandler<HTMLInputElement>>(
       e => {
         setIsFocused(false)
         if (onBlur) onBlur(e)

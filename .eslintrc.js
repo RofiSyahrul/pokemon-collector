@@ -28,6 +28,30 @@ module.exports = {
     'import/prefer-default-export': 0,
     'import/no-extraneous-dependencies': 0,
     'import/no-dynamic-require': 0,
+    'import/order': [
+      'error',
+      {
+        groups: ['builtin', 'external', 'internal'],
+        pathGroups: [
+          {
+            group: 'external',
+            pattern: 'react',
+            position: 'before',
+          },
+          {
+            pattern: '@/**',
+            group: 'external',
+            position: 'after',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['react'],
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
     'react/jsx-filename-extension': 0,
     'global-require': 0,
     'no-underscore-dangle': 'off',
@@ -72,8 +96,8 @@ module.exports = {
         'plugin:import/typescript',
         'airbnb-typescript',
         'plugin:@typescript-eslint/recommended',
-        'prettier/@typescript-eslint',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'prettier',
       ],
       rules: {
         'prettier/prettier': ['error'],
@@ -123,6 +147,7 @@ module.exports = {
         'react/require-default-props': 0,
         'react/jsx-indent': 'off',
         'react/no-danger': 'off',
+        '@typescript-eslint/consistent-type-imports': 'warn',
         '@typescript-eslint/no-unsafe-return': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/restrict-template-expressions': 'off',
@@ -154,6 +179,7 @@ module.exports = {
             trailingUnderscore: 'forbid',
           },
         ],
+        '@typescript-eslint/no-misused-promises': 'off',
         '@typescript-eslint/ban-types': [
           'error',
           {
@@ -206,10 +232,11 @@ module.exports = {
     },
     {
       files: ['**/*.js', '*.js'],
-      parser: 'babel-eslint',
+      parser: '@babel/eslint-parser',
       parserOptions: {
-        parser: 'babel-eslint',
+        parser: '@babel/eslint-parser',
         project: './tsconfig.json',
+        requireConfigFile: false,
       },
       extends: [
         'plugin:import/errors',

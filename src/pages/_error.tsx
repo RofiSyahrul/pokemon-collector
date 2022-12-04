@@ -1,5 +1,5 @@
-import { ErrorProps } from 'next/error'
-import { NextPage } from 'next'
+import type { NextPage } from 'next'
+import type { ErrorProps } from 'next/error'
 
 import ErrorPage from '@/components/pages/error'
 
