@@ -1,0 +1,148 @@
+.input {
+  @apply my-2 flex flex-col w-full;
+  min-width: 250px;
+}
+
+.input__container {
+  @apply relative flex w-full rounded bg-neutral-dim1;
+}
+
+.input_has-error .input__container {
+  @apply border border-solid border-danger-bright1 bg-danger-dim;
+}
+
+.input_focused:not(.input_has-error) .input__container {
+  @apply border border-solid border-primary-bright;
+}
+
+.input_disabled:not(.input_has-error) .input__container {
+  @apply bg-neutral-dim2;
+}
+
+.input__prefix {
+  @apply pl-3;
+}
+
+.input__suffix {
+  @apply pr-3;
+}
+
+.input__prefix,
+.input__suffix {
+  @apply flex flex-col justify-center py-3;
+  @apply text-neutral-bright;
+  height: 3rem;
+}
+
+.input_has-label .input__prefix,
+.input_has-label .input__suffix {
+  height: 3.5rem;
+}
+
+.input__support-text {
+  @apply text-xs my-1 text-neutral-bright1;
+}
+
+.input_has-error .input__support-text {
+  @apply text-danger-bright1;
+}
+
+.input__label {
+  @apply text-neutral-bright1;
+  @apply absolute left-3;
+  @apply duration-200 pointer-events-none;
+  top: 50%;
+  transition-timing-function: ease;
+  transition-duration: 0.2s;
+  transform: translateY(-50%);
+  transition-property: top;
+}
+
+.input__input:focus ~ .input__label,
+.input__input:not(:placeholder-shown) ~ .input__label,
+.input_has-prefix .input__input ~ .input__label {
+  @apply text-primary-bright text-xs pr-3;
+  top: 1px;
+  transform: translateY(0px);
+  width: calc(100% - 13px);
+}
+
+.input_has-error .input__input ~ .input__label {
+  @apply text-danger-bright;
+}
+
+.input__input {
+  @apply w-full bg-transparent text-neutral-bright resize-y px-3;
+  min-height: 3rem;
+}
+
+.input_has-label .input__input {
+  min-height: 3.5rem;
+}
+
+.input__input::-webkit-input-placeholder {
+  @apply text-neutral-bright1;
+}
+
+.input__input::-moz-placeholder {
+  @apply text-neutral-bright1;
+}
+
+.input__input:-ms-input-placeholder {
+  @apply text-neutral-bright1;
+}
+
+.input__input::placeholder {
+  @apply text-neutral-bright1;
+}
+
+.input__input:disabled {
+  cursor: not-allowed;
+}
+
+.input__input:focus::-webkit-input-placeholder {
+  visibility: visible;
+}
+
+.input__input:focus::-moz-placeholder {
+  visibility: visible;
+}
+
+.input__input:focus::placeholder {
+  visibility: visible;
+}
+
+.input__input:focus:-ms-input-placeholder {
+  visibility: visible;
+  opacity: 1;
+}
+
+.input_has-label:not(.input_has-prefix) .input__input:not(:focus)::placeholder {
+  visibility: hidden;
+}
+
+.input_has-label:not(.input_has-prefix)
+  .input__input:not(:focus)::-webkit-input-placeholder {
+  visibility: hidden;
+}
+
+.input_has-label:not(.input_has-prefix)
+  .input__input:not(:focus)::-moz-placeholder {
+  visibility: hidden;
+}
+
+.input_has-label:not(.input_has-prefix)
+  .input__input:not(:focus):-ms-input-placeholder {
+  visibility: hidden;
+}
+
+.input__input ::-webkit-outer-spin-button,
+.input__input ::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0rem;
+}
+
+.input:not(.input_has-error) .input__input:focus ~ .input__label {
+  @apply text-primary-bright;
+}

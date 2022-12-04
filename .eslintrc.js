@@ -88,7 +88,7 @@ module.exports = {
         'no-underscore-dangle': 'off',
         'no-restricted-syntax': 'off',
         'no-param-reassign': 'off',
-        'no-unused-vars': 'warn',
+        'no-unused-vars': 'off',
         'no-nested-ternary': 0,
         'react-hooks/exhaustive-deps': 'off',
         'import/no-unresolved': [

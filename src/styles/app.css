@@ -1,0 +1,148 @@
+:root {
+  --font-family: -apple-system, system-ui, sans-serif, 'Segoe UI',
+    Helvetica Neue, Helvetica, Roboto, Arial, 'Apple Color Emoji',
+    'Segoe UI Emoji';
+
+  --color-neutral-dim0: #0f172a;
+  --color-neutral-bright0: #f1f5f9;
+  --color-neutral-dim: #1e293b;
+  --color-neutral-bright: #e2e8f0;
+  --color-neutral-dim1: #334155;
+  --color-neutral-bright1: #cbd5e1;
+  --color-neutral-dim2: #475569;
+  --color-neutral-bright2: #94a3b8;
+
+  --color-primary-dim: #075985;
+  --color-primary-bright: #bae6fd;
+
+  --color-secondary-dim: #059669;
+  --color-secondary-bright: #6ee7b7;
+
+  --color-danger-dim: #b91c1c;
+  --color-danger-bright: #fecaca;
+  --color-danger-dim1: #dc2626;
+  --color-danger-bright1: #fca5a5;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#__next {
+  width: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+* {
+  color: inherit;
+  font-family: var(--font-family);
+}
+
+*:focus {
+  outline: none;
+  filter: none !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+  margin: 0;
+  color: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0px;
+  width: 100%;
+  padding: 0px auto;
+  background: var(--color-neutral-dim);
+  color: var(--color-neutral-bright);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body ::-webkit-scrollbar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0;
+  height: 0;
+}
+
+input {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: white;
+  -webkit-rtl-ordering: logical;
+  cursor: text;
+  padding: 0;
+  border: none;
+}
+
+input[type='button' i],
+input[type='submit' i],
+input[type='reset' i],
+input[type='file' i]::-webkit-file-upload-button,
+button {
+  padding: 0;
+}
+
+input:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+.fancy-text {
+  content: url(/pokeball.png);
+  @apply h-20 sm:h-32;
+}
+
+@keyframes pokeball {
+  from {
+    transform: rotate(10deg);
+  }
+  to {
+    transform: rotate(-10deg);
+  }
+}
+
+@keyframes globe {
+  from {
+    transform: rotate3d(0, 1, 0, 0deg);
+  }
+  50% {
+    transform: rotate3d(0, 1, 0, 180deg);
+  }
+  to {
+    transform: rotate3d(0, 1, 0, 0deg);
+  }
+}

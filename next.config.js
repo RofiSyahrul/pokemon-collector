@@ -1,4 +1,4 @@
-const withPWA = require('next-pwa')
+// const withPWA = require('next-pwa')
 const pkg = require('./package.json')
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -33,14 +33,16 @@ const baseConfig = withBundleAnalyzer({
   },
 })
 
-module.exports = withPWA({
-  pwa: {
-    dest: 'public',
-    disable: process.env.NODE_ENV !== 'production',
-    register: true,
-    buildExcludes: [/fonts\/.*$/],
-    clientsClaim: true,
-    skipWaiting: true,
-  },
-  ...baseConfig,
-})
+// module.exports = withPWA({
+//   pwa: {
+//     dest: 'public',
+//     disable: process.env.NODE_ENV !== 'production',
+//     register: true,
+//     buildExcludes: [/fonts\/.*$/],
+//     clientsClaim: true,
+//     skipWaiting: true,
+//   },
+//   ...baseConfig,
+// })
+
+module.exports = baseConfig

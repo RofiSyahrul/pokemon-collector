@@ -1,0 +1,81 @@
+.card {
+  @apply h-24 sm:h-16 md:h-20 lg:h-24;
+  @apply relative flex items-center w-full bg-neutral-dim shadow-lg shadow-neutral-dim0;
+  @apply rounded-tl-full rounded-bl-full rounded-tr-lg rounded-br-lg;
+}
+
+.card__image-container {
+  @apply h-24 sm:h-16 md:h-20 lg:h-24;
+  @apply rounded-full shadow-lg;
+  @apply border border-solid border-primary-bright;
+  @apply relative bg-neutral-dim;
+}
+
+.card__image-container img {
+  @apply rounded-full;
+}
+
+.card__content {
+  @apply rounded-tr-lg rounded-br-lg flex-1 h-full p-2;
+}
+
+.card__name {
+  @apply text-xl font-medium text-neutral-bright1;
+  border-radius: 0 8px 8px 0;
+}
+
+.card_linkable .card__name::after {
+  @apply absolute top-0 left-0 w-full h-full cursor-pointer;
+  content: ' ';
+}
+
+.card__nickname {
+  max-width: calc(100% - 75px);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.card__label {
+  @apply absolute bottom-0 right-0 p-1 rounded-tl-lg rounded-br-lg;
+  @apply bg-primary-bright text-neutral-dim;
+  @apply text-xs;
+}
+
+@media (hover: hover) {
+  .card:hover img {
+    @apply scale-125;
+  }
+
+  .card_linkable .card__image-container {
+    @apply border-neutral-bright;
+  }
+
+  .card_linkable:hover {
+    @apply shadow-none bg-primary-dim;
+  }
+
+  .card_linkable:hover .card__image-container {
+    @apply border-primary-bright border-2;
+  }
+
+  .card_linkable:hover .card__name {
+    @apply text-primary-bright;
+  }
+
+  .card_linkable:hover .card__label {
+    @apply bg-secondary-bright;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767.95px) {
+  .card__nickname {
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+  }
+}

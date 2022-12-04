@@ -2,7 +2,7 @@
 const apolloConfig = {
   client: {
     excludes: ['./node_modules/**'],
-    includes: ['./graph-query/*.ts', './graph-query/**/*.ts'],
+    includes: ['./src/graph-query/*.ts', './src/graph-query/**/*.ts'],
     tagName: 'gql',
     addTypename: false,
     service: {
