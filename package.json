@@ -8,6 +8,7 @@
     "dev": "concurrently -k -p \"[{name} @ {time}]\" -n \"Next,Apollo\" -c \"cyan.bold,green.bold\" \"TAILWIND_MODE=watch next dev -p 2345\" \"yarn generate:watch\"",
     "build": "next build",
     "build:analyze": "ANALYZE=true yarn build",
+    "build:fast": "SKIP_STATIC_PAGES=true yarn build",
     "start": "next start",
     "lint": "yarn lint:css && yarn lint:ts",
     "lint:fix": "yarn lint:css:fix && yarn lint:ts:fix",

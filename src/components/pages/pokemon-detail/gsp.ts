@@ -62,6 +62,10 @@ function formatBasicInfo(
 export const getStaticPaths: GetStaticPaths<
   PokemonDetailPageParams
 > = async () => {
+  if (process.env.SKIP_STATIC_PAGES === 'true') {
+    return { fallback: 'blocking', paths: [] }
+  }
+
   const pokemonNames = await fetchAllPokemonNames()
   return {
     fallback: false,

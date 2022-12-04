@@ -7,6 +7,8 @@ export const dynamicParams = false
 export const dynamic = 'error'
 
 export async function generateStaticParams(): Promise<PageParams[]> {
+  if (process.env.SKIP_STATIC_PAGES === 'true') return []
+
   const { totalPage } = await fetchTotalPokemons()
   if (totalPage <= 1) return []
 
