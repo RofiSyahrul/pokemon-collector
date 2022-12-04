@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useCallback, useRef, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 

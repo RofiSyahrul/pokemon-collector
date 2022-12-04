@@ -1,39 +1,27 @@
 import type { FC } from 'react'
 
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
 
-import ArrowIcon from '@/icons/arrow'
 import getPokemonBg from '@/utils/styles/get-pokemon-bg'
 import getPokemonColor from '@/utils/styles/get-pokemon-color'
 
+import BackButton from './back-button'
+import CatchButton from './catch-button'
+
 interface TopFoldProps {
-  onClickCatch: () => void
   pokemonFirstType: PokemonType
   pokemonName: string
   pokemonTypes: PokemonType[]
 }
 
 const TopFold: FC<TopFoldProps> = ({
-  onClickCatch,
   pokemonFirstType,
   pokemonName,
   pokemonTypes,
 }) => {
-  const router = useRouter()
-
   return (
     <section className='w-full px-2 py-4 flex gap-2'>
-      <button
-        className='btn text-inherit w-8 h-8'
-        onClick={router.back}
-        style={{ padding: 0 }}
-        title='Go back'
-        type='button'
-      >
-        <ArrowIcon className='w-8 h-8' />
-        <span className='sr-only'>Go back</span>
-      </button>
+      <BackButton />
       <div className='flex-1 w-full flex flex-col gap-2'>
         <h1
           className={clsx(
@@ -59,17 +47,13 @@ const TopFold: FC<TopFoldProps> = ({
           ))}
         </div>
       </div>
-      <button
+      <CatchButton
         className={clsx(
           'btn rounded-full bg-opacity-80 h-12 hover:shadow-lg',
           getPokemonBg(pokemonFirstType, 'inversed'),
           getPokemonColor(pokemonFirstType)
         )}
-        onClick={onClickCatch}
-        type='button'
-      >
-        Catch me
-      </button>
+      />
     </section>
   )
 }

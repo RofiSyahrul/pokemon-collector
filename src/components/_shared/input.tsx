@@ -1,3 +1,5 @@
+'use client'
+
 import { forwardRef, useCallback, useState } from 'react'
 import type { FocusEventHandler } from 'react'
 

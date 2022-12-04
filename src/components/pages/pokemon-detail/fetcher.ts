@@ -1,17 +1,11 @@
-import type { GetStaticPaths, GetStaticProps } from 'next'
-
 import pokemonColors from '@/constants/pokemon-colors'
-import { fetchAllPokemonNames, fetchPokemonDetail } from '@/lib/pokeomon.server'
+import { fetchPokemonDetail } from '@/lib/pokeomon.server'
 import type { PokemonDetailResponse } from '@/lib/pokeomon.server'
 import capitalize from '@/utils/capitalize'
 import enumerate from '@/utils/enumerate'
 import formatNumber from '@/utils/formatNumber'
 
-import type {
-  EnrichedPokemonDetail,
-  PokemonDetailPageParams,
-  PokemonDetailPageProps,
-} from './types'
+import type { EnrichedPokemonDetail, PokemonDetailPageParams } from './types'
 
 const pokemonTypes = Object.keys(pokemonColors)
 
@@ -59,35 +53,16 @@ function formatBasicInfo(
   }
 }
 
-export const getStaticPaths: GetStaticPaths<
-  PokemonDetailPageParams
-> = async () => {
-  if (process.env.SKIP_STATIC_PAGES === 'true') {
-    return { fallback: 'blocking', paths: [] }
-  }
-
-  const pokemonNames = await fetchAllPokemonNames()
-  return {
-    fallback: false,
-    paths: pokemonNames.map(name => ({ params: { name } })),
-  }
-}
-
-export const getStaticProps: GetStaticProps<
-  PokemonDetailPageProps,
-  PokemonDetailPageParams
-> = async ({ params }) => {
-  const name = params?.name?.toString()
-  if (!name) {
-    return { notFound: true }
-  }
+export default async function fetcher(
+  params?: PokemonDetailPageParams
+): Promise<EnrichedPokemonDetail | null> {
+  const name = params?.name.toString()
+  if (!name) return null
 
   const { abilities, height, id, moves, types, weight } =
     await fetchPokemonDetail(name)
 
-  if (typeof id !== 'number' || id < 1) {
-    return { notFound: true }
-  }
+  if (typeof id !== 'number' || id < 1) return null
 
   const { ability, abilityTitle } = transformAbilities(abilities)
   const basicInfo = formatBasicInfo(height ?? 0, weight ?? 0)
@@ -95,23 +70,17 @@ export const getStaticProps: GetStaticProps<
   const pokemonName = capitalize(name)
 
   return {
-    props: {
-      pokemonDetail: {
-        ability,
-        abilityTitle,
-        description,
-        height: basicInfo.height,
-        id,
-        image: `${BASE_IMAGE_URL}/${id}.png`,
-        moves: (moves ?? [])
-          .map(item => item?.move?.name ?? '')
-          .filter(Boolean),
-        name,
-        nicknames: [],
-        pokemonName,
-        weight: basicInfo.weight,
-        ...transformTypes(types),
-      },
-    },
+    ability,
+    abilityTitle,
+    description,
+    height: basicInfo.height,
+    id,
+    image: `${BASE_IMAGE_URL}/${id}.png`,
+    moves: (moves ?? []).map(item => item?.move?.name ?? '').filter(Boolean),
+    name,
+    nicknames: [],
+    pokemonName,
+    weight: basicInfo.weight,
+    ...transformTypes(types),
   }
 }

@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 
-import { initiateMyPokemons } from './app.store'
+import { initiateMyPokemons } from '@/store/app.store'
 
 export default function AppInit() {
   useEffect(() => {

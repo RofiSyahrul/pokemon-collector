@@ -1,3 +1,5 @@
+'use client'
+
 import type { FC, HTMLAttributes } from 'react'
 
 import { AccordionContext } from './accordion-context'

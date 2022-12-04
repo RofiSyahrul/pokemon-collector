@@ -9,9 +9,10 @@ import Input from '@/components/_shared/input'
 import { addMyPokemon, useMyPokemonNames } from '@/store/app.store'
 import capitalize from '@/utils/capitalize'
 
+import { resetCatchStatus, setActiveAccordion } from './_store'
+
 interface NicknameFormProps {
   autoFocus: boolean
-  onSubmitFinished(): void
   pokemonID: number
   pokemonImage: string
   pokemonName: string
@@ -19,7 +20,6 @@ interface NicknameFormProps {
 
 const NicknameForm: FC<NicknameFormProps> = ({
   autoFocus,
-  onSubmitFinished,
   pokemonID,
   pokemonImage,
   pokemonName,
@@ -58,9 +58,11 @@ const NicknameForm: FC<NicknameFormProps> = ({
       })
 
       e.currentTarget.reset()
-      onSubmitFinished()
+
+      resetCatchStatus()
+      setActiveAccordion('nickname')
     },
-    [onSubmitFinished, pokemonID, pokemonImage, pokemonName]
+    [pokemonID, pokemonImage, pokemonName]
   )
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import 'nprogress/nprogress.css'
 import '@/styles/tailwind.css'
 import '@/styles/app.css'
 
-import AppInit from '@/store/app.init'
+import AppInit from './app.init'
 
 export default function Layout({ children }: LayoutProps) {
   return (
