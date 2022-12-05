@@ -3,8 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ChangeEventHandler, FC, FormEventHandler } from 'react'
 
-import Image from 'next/legacy/image'
-
+import Img from '@/components/_shared/image'
 import Input from '@/components/_shared/input'
 import { addMyPokemon, useMyPokemonNames } from '@/store/app.store'
 import capitalize from '@/utils/capitalize'
@@ -76,12 +75,12 @@ const NicknameForm: FC<NicknameFormProps> = ({
       className='w-full flex flex-col gap-4 items-center'
       onSubmit={handleSubmit}
     >
-      <Image
+      <Img
         alt={capitalizedPokemonName}
         height={144}
-        objectFit='contain'
         src={pokemonImage}
         width={144}
+        style={{ objectFit: 'contain' }}
       />
       <Input
         autoComplete='off'

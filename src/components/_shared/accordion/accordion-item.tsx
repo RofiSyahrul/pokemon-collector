@@ -25,7 +25,6 @@ const AccordionItem: FC<AccordionItemProps> = ({
   value,
   ...props
 }) => {
-  const [isShown, setIsShown] = useState(false)
   const [animationType, setAnimationType] = useState<
     AnimationType | undefined
   >()
@@ -82,22 +81,12 @@ const AccordionItem: FC<AccordionItemProps> = ({
     [isOpen, onClickAccordion, value]
   )
 
-  const handleAnimationEnd = useCallback(() => {
-    if (animationType !== 'leave') return
-    setIsShown(false)
-  }, [animationType])
-
   useEffect(() => {
-    if (isOpen) {
-      setAnimationType('enter')
-      setIsShown(true)
-    } else {
-      setAnimationType('leave')
-    }
+    setAnimationType(isOpen ? 'enter' : 'leave')
   }, [isOpen])
 
   return (
-    <details open={isOpen && isShown} {...props}>
+    <details open={isOpen} {...props}>
       <summary
         className={clsx(
           'marker:hidden flex items-center justify-between gap-2 w-full p-2',
@@ -124,7 +113,6 @@ const AccordionItem: FC<AccordionItemProps> = ({
           animationType === 'leave' && 'animate-slide-up-accordion',
           contentClasses
         )}
-        onAnimationEnd={handleAnimationEnd}
       >
         {children}
       </div>

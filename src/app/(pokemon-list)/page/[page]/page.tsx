@@ -22,5 +22,7 @@ export default async function Page({ params }: AppPageProps<PageParams>) {
   const { totalPage } = await fetchTotalPokemons()
   const { pokemons } = await fetchPokemons(page)
 
-  return <PokemonListPage pokemons={pokemons} totalPage={totalPage} />
+  return (
+    <PokemonListPage page={page} pokemons={pokemons} totalPage={totalPage} />
+  )
 }

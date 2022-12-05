@@ -3,7 +3,7 @@
 import type { FC } from 'react'
 
 import clsx from 'clsx'
-import Image from 'next/legacy/image'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -54,10 +54,9 @@ const Navigation: FC<HeaderProps> = ({ activeLink }) => {
             <Image
               alt='My Pokemons'
               height={40}
-              layout='intrinsic'
               loading='eager'
-              objectFit='contain'
               src={IMAGE_FALLBACK}
+              style={{ height: 'auto', maxWidth: '100%', objectFit: 'contain' }}
               width={40}
             />
             <span className='sr-only'>My Pokemons</span>

@@ -21,7 +21,7 @@ export default function Nicknames({
   const { isEmpty, nicknames, title } = useMemo(() => {
     const pokemonNicknames = myPokemonList
       .filter(item => item.name === pokemonName)
-      .map(item => item.name)
+      .map(item => item.nickname)
 
     const totalNickname = pokemonNicknames.length
     return {

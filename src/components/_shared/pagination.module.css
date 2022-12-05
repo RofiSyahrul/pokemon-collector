@@ -1,0 +1,65 @@
+.pagination {
+  @apply w-full flex flex-nowrap justify-end p-4 lg:p-6;
+}
+
+.pagination ul {
+  @apply block;
+}
+
+.pagination li,
+.pagination li svg {
+  @apply w-7;
+}
+
+.pagination li {
+  @apply inline-block text-center align-middle select-none;
+}
+
+.pagination li:not(:last-child) {
+  @apply mr-1;
+}
+
+.pagination a,
+.pagination button {
+  @apply block px-1 text-center text-primary-bright no-underline font-bold;
+  @apply border border-solid border-primary-bright rounded;
+  font-size: 0.875rem;
+  line-height: 2rem;
+}
+
+.pagination a[aria-current] {
+  @apply bg-primary-bright text-neutral-dim pointer-events-none;
+}
+
+.pagination button:disabled {
+  @apply cursor-not-allowed opacity-30;
+}
+
+.pagination li:first-child button,
+.pagination li:last-child button,
+.pagination li:first-child a,
+.pagination li:last-child a {
+  @apply p-0;
+}
+
+.pagination a:hover:not(:disabled),
+.pagination button:hover:not(:disabled) {
+  @apply brightness-75;
+}
+
+@media (min-width: 381px) {
+  .pagination li,
+  .pagination li svg {
+    @apply w-8;
+  }
+
+  .pagination li:not(:last-child) {
+    @apply mr-1.5;
+  }
+}
+
+@media (min-width: 561px) {
+  .pagination li:not(:last-child) {
+    @apply mr-2;
+  }
+}

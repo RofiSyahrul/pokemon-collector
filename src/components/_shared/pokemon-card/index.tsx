@@ -1,9 +1,9 @@
 import { forwardRef, useMemo } from 'react'
 
 import clsx from 'clsx'
-import Image from 'next/legacy/image'
 import Link from 'next/link'
 
+import Img from '@/components/_shared/image'
 import Skeleton from '@/components/_shared/skeleton'
 import capitalize from '@/utils/capitalize'
 
@@ -14,12 +14,11 @@ import TotalOwnedPokemons from './components/total-owned-pokemons'
 interface PokemonCardProps extends PokemonOverview {
   href?: string
   nickname?: string
-  priority?: boolean
   variant?: 'basic' | 'my-pokemon'
 }
 
 const PokemonCard = forwardRef<HTMLAnchorElement, PokemonCardProps>(
-  ({ href, image, name, nickname, priority, variant = 'basic' }, ref) => {
+  ({ href, image, name, nickname, variant = 'basic' }, ref) => {
     const isMyPokemonCard = variant === 'my-pokemon'
 
     const { capitalizedName, title, titleClassName } = useMemo(() => {
@@ -42,15 +41,12 @@ const PokemonCard = forwardRef<HTMLAnchorElement, PokemonCardProps>(
     return (
       <div className={clsx(styles.card, { [styles.card_linkable]: !!href })}>
         <div className={styles['card__image-container']}>
-          <Image
+          <Img
             alt={`Image of ${name}`}
             height={96}
-            layout='intrinsic'
-            loading={priority ? 'eager' : 'lazy'}
-            objectFit='contain'
-            priority={priority}
             src={image}
             width={96}
+            style={{ maxWidth: '100%', height: 'auto', objectFit: 'contain' }}
           />
         </div>
         <div className={styles.card__content}>

@@ -1,7 +1,8 @@
 'use client'
 
 import clsx from 'clsx'
-import Image from 'next/legacy/image'
+
+import Img from '@/components/_shared/image'
 
 import type { EnrichedPokemonDetail } from '../types'
 import { catchPokemon, useCatchStatus } from './_store'
@@ -27,7 +28,7 @@ export default function PokemonImage({
       title={`Catch ${pokemonName}`}
       type='button'
     >
-      <Image
+      <Img
         key={`${isCatching}`}
         alt={pokemonName}
         className={clsx(
@@ -35,11 +36,10 @@ export default function PokemonImage({
           isCatching ? 'animate-pokeball' : 'hover:scale-150'
         )}
         height={isCatching ? IMAGE_FALLBACK_SIZE : IMAGE_SIZE}
-        layout='intrinsic'
         loading='eager'
-        objectFit='contain'
         priority
         src={isCatching ? IMAGE_FALLBACK : image}
+        style={{ height: 'auto', maxWidth: '100%', objectFit: 'contain' }}
         width={isCatching ? IMAGE_FALLBACK_SIZE : IMAGE_SIZE}
       />
       <span className='sr-only'>{`Catch ${pokemonName}`}</span>
