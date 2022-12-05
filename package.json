@@ -5,7 +5,7 @@
   "sideEffects": false,
   "homepage": "https://github.com/RofiSyahrul/pokemon-collector",
   "scripts": {
-    "dev": "concurrently -k -p \"[{name} @ {time}]\" -n \"Next,Apollo\" -c \"cyan.bold,green.bold\" \"TAILWIND_MODE=watch next dev -p 2345\" \"yarn generate:watch\"",
+    "dev": "TAILWIND_MODE=watch next dev -p 2345",
     "build": "next build",
     "build:analyze": "ANALYZE=true yarn build",
     "build:fast": "SKIP_STATIC_PAGES=true yarn build",
@@ -16,8 +16,6 @@
     "lint:css:fix": "yarn lint:css --fix",
     "lint:ts": "eslint . --ext .js,.jsx,.ts,.tsx --color",
     "lint:ts:fix": "yarn lint:ts --fix",
-    "generate": "apollo client:codegen --target=typescript --tsFileExtension=d.ts --no-addTypename --outputFlat src/types  --config=apollo.config.js",
-    "generate:watch": "yarn generate --watch",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -44,11 +42,7 @@
     "@types/react-dom": "^18.0.9",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
-    "apollo": "^2.34.0",
     "autoprefixer": "^10.4.13",
-    "commitizen": "^4.2.5",
-    "concurrently": "^7.6.0",
-    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.29.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -59,7 +53,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "file-loader": "^6.2.0",
     "husky": "^8.0.0",
     "lint-staged": "^13.0.4",
     "postcss": "^8.4.19",
