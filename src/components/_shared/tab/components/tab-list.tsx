@@ -6,6 +6,7 @@ import { useEffect, useState, useRef, useMemo, useCallback } from 'react'
 import type { ClassValue } from 'clsx'
 import clsx from 'clsx'
 
+import { delay } from '@/utils/delay'
 import getPokemonBg from '@/utils/styles/get-pokemon-bg'
 import getPokemonColor from '@/utils/styles/get-pokemon-color'
 
@@ -51,9 +52,7 @@ function TabButton({
       {title}
       {typeof badge === 'number' && badge >= 0 && (
         <div className={clsx(styles['tab-list__item__badge'], badgeClassName)}>
-          <span className={styles['tab-list__item__text']}>
-            {badge > 99 ? '99+' : badge}
-          </span>
+          <span className={styles['tab-list__item__text']}>{badge}</span>
         </div>
       )}
     </button>
@@ -89,7 +88,7 @@ export default function TabList({ tabList }: TabListProps) {
   }, [colorName])
 
   useEffect(() => {
-    function adjustGliderStyle() {
+    async function adjustGliderStyle() {
       if (!activeTab || !containerRef.current) return
 
       const container = containerRef.current
@@ -99,6 +98,7 @@ export default function TabList({ tabList }: TabListProps) {
 
       if (!activeTabButton) return
 
+      await delay(10)
       const { left: containerLeft } = container.getBoundingClientRect()
       const { left } = activeTabButton.getBoundingClientRect()
       setGliderStyle({
