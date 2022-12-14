@@ -6,9 +6,9 @@ import Img from '@/components/_shared/image'
 
 import type { EnrichedPokemonDetail } from '../types'
 import { catchPokemon, useCatchStatus } from './_store'
+import styles from './_styles.module.css'
 
 const IMAGE_SIZE = 192
-const IMAGE_FALLBACK_SIZE = 100
 
 type PokemonImageProps = Pick<EnrichedPokemonDetail, 'image' | 'pokemonName'>
 
@@ -20,27 +20,26 @@ export default function PokemonImage({
 
   return (
     <button
-      className={clsx(
-        'w-36 h-36 lg:w-48 lg:h-48 absolute bottom-full left-1/2',
-        '-translate-x-1/2 translate-y-[40%] lg:translate-y-[30%] bg-transparent btn btn-text'
-      )}
+      className={clsx(styles['pokemon-button'], {
+        [styles['pokemon-button_catching']]: isCatching,
+      })}
       onClick={catchPokemon}
       title={`Catch ${pokemonName}`}
       type='button'
     >
+      <div className={styles['pokemon-button__ball']}>
+        <div className={styles['pokemon-button__ball__shadow']} />
+      </div>
       <Img
         key={`${isCatching}`}
         alt={pokemonName}
-        className={clsx(
-          'w-full h-full transition-transform',
-          isCatching ? 'animate-pokeball' : 'hover:scale-150'
-        )}
-        height={isCatching ? IMAGE_FALLBACK_SIZE : IMAGE_SIZE}
+        className='w-full h-full transition-transform'
+        height={IMAGE_SIZE}
         loading='eager'
         priority
         src={isCatching ? IMAGE_FALLBACK : image}
         style={{ height: 'auto', maxWidth: '100%', objectFit: 'contain' }}
-        width={isCatching ? IMAGE_FALLBACK_SIZE : IMAGE_SIZE}
+        width={IMAGE_SIZE}
       />
       <span className='sr-only'>{`Catch ${pokemonName}`}</span>
     </button>

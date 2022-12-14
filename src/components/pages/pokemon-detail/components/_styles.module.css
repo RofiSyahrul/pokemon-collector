@@ -1,3 +1,83 @@
+.pokemon-button {
+  @apply w-36 h-36 lg:w-48 lg:h-48 absolute bottom-full left-1/2;
+  @apply -translate-x-1/2 translate-y-[40%] lg:translate-y-[30%];
+  @apply bg-transparent btn btn-text;
+  @apply rounded-full;
+}
+
+.pokemon-button:hover {
+  filter: none !important;
+}
+
+.pokemon-button__ball {
+  @apply absolute top-0 left-0 w-full h-full opacity-90 bg-no-repeat;
+  content: '';
+  z-index: -1;
+  background-image: url(/pokeball.png);
+  background-position: 50%;
+  background-size: 100%;
+}
+
+.pokemon-button_catching .pokemon-button__ball {
+  @apply animate-pokeball;
+}
+
+.pokemon-button_catching img,
+.pokemon-button img[src$='/pokeball.png'] {
+  visibility: hidden;
+}
+
+.pokemon-button:not(.pokemon-button_catching):hover img {
+  @apply scale-150;
+}
+
+.pokemon-button__ball:before {
+  content: '';
+  position: absolute;
+  top: 1%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 0px,
+    #ffffff,
+    rgba(255, 255, 255, 0) 58%
+  );
+  filter: blur(5px);
+  z-index: 2;
+}
+
+.pokemon-button__ball:after {
+  content: '';
+  position: absolute;
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(245, 237, 48, 0),
+    rgba(200, 190, 20, 0.2) 50%,
+    #575300 100%
+  );
+}
+
+.pokemon-button__ball__shadow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.1) 40%,
+    rgba(0, 0, 0, 0) 50%
+  );
+  transform: rotateX(90deg) translateZ(-160px);
+  z-index: 1;
+}
+
 .about__title {
   @apply text-3xl text-neutral-bright1 mb-1;
 }
