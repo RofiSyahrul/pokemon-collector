@@ -48,8 +48,8 @@ function formatBasicInfo(
   pokemonWeight: number
 ): Pick<EnrichedPokemonDetail, 'height' | 'weight'> {
   return {
-    height: `${formatNumber(pokemonHeight / 10)} kg`,
-    weight: `${formatNumber(pokemonWeight / 10)} m`,
+    height: `${formatNumber(pokemonHeight / 10)} m`,
+    weight: `${formatNumber(pokemonWeight / 10)} kg`,
   }
 }
 
