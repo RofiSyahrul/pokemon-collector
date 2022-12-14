@@ -8,7 +8,7 @@ import Input from '@/components/_shared/input'
 import { addMyPokemon, useMyPokemonNames } from '@/store/app.store'
 import capitalize from '@/utils/capitalize'
 
-import { resetCatchStatus, setActiveAccordion } from './_store'
+import { resetCatchStatus, setActiveTab } from './_store'
 
 interface NicknameFormProps {
   autoFocus: boolean
@@ -59,7 +59,7 @@ const NicknameForm: FC<NicknameFormProps> = ({
       e.currentTarget.reset()
 
       resetCatchStatus()
-      setActiveAccordion('nickname')
+      setActiveTab('owned')
     },
     [pokemonID, pokemonImage, pokemonName]
   )

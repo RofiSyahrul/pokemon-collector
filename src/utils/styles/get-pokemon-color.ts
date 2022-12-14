@@ -2,7 +2,12 @@ import pokemonNeutralColorInverses from './neutral-inverses'
 
 type NeutralColor = 'black' | 'white'
 
-type Variant = 'inversed' | 'inversed-with-border' | 'normal' | 'hover-inversed'
+type Variant =
+  | 'inversed'
+  | 'inversed-with-border'
+  | 'normal'
+  | 'hover-inversed'
+  | 'selected-inversed'
 
 type InverseColor = Partial<
   Record<`${'text' | 'border'}-${NeutralColor}`, boolean>
@@ -11,6 +16,7 @@ type InverseColor = Partial<
 type Result =
   | Record<`text-pokemon-${PokemonType}`, boolean>
   | Record<`hover:text-${NeutralColor}`, boolean>
+  | Record<`aria-selected:text-${NeutralColor}`, boolean>
   | InverseColor
 
 export default function getPokemonColor(
@@ -27,6 +33,14 @@ export default function getPokemonColor(
         'hover:text-white': isWhite,
       }
     }
+
+    if (variant === 'selected-inversed') {
+      return {
+        'aria-selected:text-black': isBlack,
+        'aria-selected:text-white': isWhite,
+      }
+    }
+
     const result: InverseColor = {
       'text-black': isBlack,
       'text-white': isWhite,

@@ -1,4 +1,6 @@
-:root {
+:root,
+::before,
+::after {
   --font-family: -apple-system, system-ui, sans-serif, 'Segoe UI',
     Helvetica Neue, Helvetica, Roboto, Arial, 'Apple Color Emoji',
     'Segoe UI Emoji';

@@ -1,0 +1,49 @@
+.about__title {
+  @apply text-3xl text-neutral-bright1 mb-1;
+}
+
+.about__value {
+  @apply text-4xl text-neutral-bright0;
+}
+
+.catched-pokemon-btn {
+  @apply flex items-center justify-center gap-2 rounded-lg p-2 h-10 text-base font-semibold;
+  @apply shadow-md shadow-primary-bright bg-primary-bright text-neutral-dim;
+  @apply absolute bottom-0 left-1/2 -translate-x-1/2;
+  min-width: 200px;
+}
+
+.catched-pokemon-btn:hover {
+  @apply shadow-none;
+}
+
+.catched-pokemon-btn__badge {
+  @apply font-bold text-sm w-10 h-10 flex items-center justify-center;
+  @apply absolute bottom-full right-0 translate-x-1/2 translate-y-1/2 p-2;
+  @apply bg-neutral-dim2 text-neutral-bright rounded-full;
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.catched-pokemon-btn:hover .catched-pokemon-btn__badge {
+  transform: translate(-200px, 50%) translateX(50%);
+}
+
+.catched-pokemon-btn__text {
+  @apply max-w-full text-base font-semibold;
+}
+
+@media (min-width: 481px) and (max-width: 1080.95px) {
+  .about__ability {
+    grid-column: 1 / span 2;
+  }
+}
+
+@media (max-width: 480.95px) {
+  .about__title {
+    @apply text-2xl;
+  }
+
+  .about__value {
+    @apply text-3xl;
+  }
+}

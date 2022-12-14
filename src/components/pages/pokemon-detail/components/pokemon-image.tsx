@@ -22,7 +22,7 @@ export default function PokemonImage({
     <button
       className={clsx(
         'w-36 h-36 lg:w-48 lg:h-48 absolute bottom-full left-1/2',
-        '-translate-x-1/2 translate-y-[40%] bg-transparent z-10 btn btn-text'
+        '-translate-x-1/2 translate-y-[40%] lg:translate-y-[30%] bg-transparent btn btn-text'
       )}
       onClick={catchPokemon}
       title={`Catch ${pokemonName}`}

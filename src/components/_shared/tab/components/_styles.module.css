@@ -1,0 +1,61 @@
+.tab-list {
+  @apply flex gap-3 items-center justify-center w-full px-1 py-2;
+  @apply relative rounded-full overflow-x-auto;
+  @apply border border-solid border-neutral-dim2 bg-neutral-dim text-neutral-bright;
+}
+
+.tab-list__glider {
+  @apply absolute left-0 h-10 rounded-full;
+  z-index: 1;
+  transition: transform 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.tab-list__item {
+  @apply flex gap-1 items-center justify-center h-10 p-2 relative;
+  @apply rounded-full hover:brightness-75 focus-visible:brightness-75;
+  @apply text-sm bg-transparent select-none;
+  min-width: 4rem;
+  z-index: 2;
+  transition: color 0.2s ease-in;
+}
+
+.tab-list__item[aria-selected='true'] {
+  @apply font-semibold;
+}
+
+.tab-list__item__badge {
+  @apply flex items-center justify-center h-4 px-0.5 rounded-full;
+  @apply absolute -top-0.5 -right-0.5;
+  min-width: 1rem;
+  font-size: 10px;
+  line-height: 1rem;
+  transition: color, background 0.2s ease-in;
+}
+
+.tab-list__item__text {
+  color: transparent;
+  filter: invert(1) brightness(2.5) grayscale(1) contrast(9);
+  background: inherit;
+  background-clip: text;
+}
+
+.tab-panel {
+  @apply p-3 overflow-auto scrollbar-thin scrollbar-track-neutral-dim;
+  @apply scrollbar-thumb-neutral-dim2 border-neutral-dim2;
+  @apply border border-solid rounded w-full;
+  @apply bg-neutral-dim text-neutral-bright;
+  @apply absolute top-full mt-3 opacity-100;
+  transition: transform 0.2s ease-in, opacity 0.25s ease-out;
+}
+
+.tab-panel[hidden] {
+  @apply block translate-x-full opacity-0;
+}
+
+.tab-panel::-webkit-scrollbar-track {
+  @apply rounded;
+}
+
+.tab-panel::-webkit-scrollbar-thumb {
+  @apply rounded;
+}

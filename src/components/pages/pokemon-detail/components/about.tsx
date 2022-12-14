@@ -2,7 +2,7 @@ import type { FC } from 'react'
 
 import clsx from 'clsx'
 
-import styles from './about.module.css'
+import styles from './_styles.module.css'
 
 interface AboutItemProps {
   title: string

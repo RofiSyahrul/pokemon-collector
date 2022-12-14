@@ -2,17 +2,17 @@ import type { FC } from 'react'
 
 import clsx from 'clsx'
 
-import Accordion from '@/components/_shared/accordion'
+import { TabPanel } from '@/components/_shared/tab'
 import getPokemonBg from '@/utils/styles/get-pokemon-bg'
 import getPokemonColor from '@/utils/styles/get-pokemon-color'
 
 import About from './components/about'
-import AccordionGroup from './components/accordion-group'
 import Attributes from './components/attributes'
 import CatchResultPopups from './components/catch-result-popups'
+import CatchedPokemonButton from './components/catched-pokemon-button'
 import Nicknames from './components/nicknames'
 import PokemonImage from './components/pokemon-image'
-import SeeMyPokemonsButton from './components/see-my-pokemons-button'
+import PokemonTab from './components/pokemon-tab'
 import TopFold from './components/top-fold'
 import type { PokemonDetailPageProps } from './types'
 
@@ -32,7 +32,6 @@ const PokemonDetailPage: FC<PokemonDetailPageProps> = ({ pokemonDetail }) => {
   } = pokemonDetail
 
   const totalMove = moves.length
-  const moveTitle = `Move${totalMove > 1 ? 's' : ''} (${totalMove})`
 
   return (
     <main
@@ -51,39 +50,39 @@ const PokemonDetailPage: FC<PokemonDetailPageProps> = ({ pokemonDetail }) => {
         className={clsx(
           'absolute bottom-0 left-0 shadow-2xl shadow-neutral-dim0',
           'w-full h-[calc(100%-200px)] rounded-tl-[2rem] rounded-tr-[2rem]',
-          'bg-neutral-dim text-neutral-bright px-2 lg:px-6 pb-2 pt-10'
+          'bg-neutral-dim text-neutral-bright px-2 lg:px-6 pb-2 pt-14'
         )}
       >
         <PokemonImage image={image} pokemonName={pokemonName} />
-        <AccordionGroup pokemonType={firstType}>
-          <Accordion.Item title='About' value='about'>
+        <PokemonTab
+          pokemonName={name}
+          pokemonType={firstType}
+          totalMove={totalMove}
+        >
+          <TabPanel name='about'>
             <About
               ability={ability}
               abilityTitle={abilityTitle}
               height={height}
               weight={weight}
             />
-          </Accordion.Item>
-          <Accordion.Item title={moveTitle} value='move'>
+          </TabPanel>
+          <TabPanel name='move'>
             {totalMove === 0 ? (
               `${pokemonName} doesn't have any moves.`
             ) : (
               <Attributes data={moves} pokemonType={firstType} variant='move' />
             )}
-          </Accordion.Item>
-          <Nicknames pokemonName={name} pokemonType={firstType} />
-        </AccordionGroup>
-        <div className='flex items-center justify-center w-full mt-4'>
-          <SeeMyPokemonsButton
-            className={clsx(
-              'flex items-center justify-center transition-opacity',
-              'w-full max-w-xs min-h-[3rem] hover:brightness-75',
-              'px-2 text-inherit cursor-pointer rounded-lg text-base font-bold',
-              getPokemonBg(firstType),
-              getPokemonColor(firstType, 'inversed')
-            )}
-          />
-        </div>
+          </TabPanel>
+          <TabPanel name='owned'>
+            <div className='relative pb-16 min-h-full'>
+              <Nicknames pokemonType={firstType} />
+              <CatchedPokemonButton />
+            </div>
+          </TabPanel>
+        </PokemonTab>
+        {/* <div className='flex items-center justify-center w-full mt-2 absolute bottom-2'>
+        </div> */}
       </section>
       <CatchResultPopups
         id={id}
