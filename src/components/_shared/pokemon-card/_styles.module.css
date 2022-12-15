@@ -7,13 +7,18 @@
 .card__image-container {
   @apply h-24 sm:h-16 md:h-20 lg:h-24;
   @apply w-24 sm:w-16 md:w-20 lg:w-24;
-  @apply rounded-full shadow-lg;
+  @apply rounded-full shadow-lg flex items-center justify-center;
   @apply border border-solid border-primary-bright;
   @apply relative bg-neutral-dim;
 }
 
 .card__image-container img {
-  @apply rounded-full;
+  @apply rounded-full relative;
+  z-index: 3;
+}
+
+.card__image-container img[src$='/pokeball.png'] {
+  @apply w-4/5 h-4/5;
 }
 
 .card__content {
@@ -58,7 +63,14 @@
   }
 
   .card_linkable:hover {
-    @apply shadow-none bg-primary-dim;
+    @apply shadow-none;
+    background: linear-gradient(
+      45deg,
+      var(--color-neutral-dim0),
+      var(--color-neutral-dim) 33%,
+      var(--color-neutral-dim1) 67%,
+      var(--color-neutral-dim2)
+    );
   }
 
   .card_linkable:hover .card__image-container {

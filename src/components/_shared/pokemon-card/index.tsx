@@ -40,7 +40,16 @@ const PokemonCard = forwardRef<HTMLAnchorElement, PokemonCardProps>(
 
     return (
       <div className={clsx(styles.card, { [styles.card_linkable]: !!href })}>
-        <div className={styles['card__image-container']}>
+        <div
+          className={clsx(
+            styles['card__image-container'],
+            'oval-3d-color-start-transparent',
+            'oval-3d-color-start-alpha-0',
+            'oval-3d-color-mid-neutral-300',
+            'oval-3d-color-mid-alpha-10',
+            'oval-3d oval-3d-color-stop-transparent'
+          )}
+        >
           <Img
             alt={`Image of ${name}`}
             height={96}

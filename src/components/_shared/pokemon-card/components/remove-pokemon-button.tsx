@@ -24,7 +24,10 @@ export default function RemovePokemonButton({
 
   return (
     <button
-      className={clsx('btn btn-solid btn-danger min-h-fit', className)}
+      className={clsx(
+        'btn btn-solid btn-danger min-h-fit rounded-full oval-3d oval-3d-color-stop-transparent',
+        className
+      )}
       data-nickname={nickname}
       onClick={handleClick}
       type='button'
