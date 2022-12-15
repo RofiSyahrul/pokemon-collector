@@ -10,12 +10,15 @@ import { useRouter } from 'next/navigation'
 import ArrowIcon from '@/icons/arrow'
 import GithubIcon from '@/icons/github'
 import HomeIcon from '@/icons/home'
+import { useAppIsReady, useMyPokemonNames } from '@/store/app.store'
 
 interface HeaderProps {
   activeLink?: 'home' | 'my-pokemons'
 }
 
 const Navigation: FC<HeaderProps> = ({ activeLink }) => {
+  const isReady = useAppIsReady()
+  const myPokemonNames = useMyPokemonNames()
   const isHomepage = activeLink === 'home'
   const isMyPokemonsPage = activeLink === 'my-pokemons'
 
@@ -51,6 +54,16 @@ const Navigation: FC<HeaderProps> = ({ activeLink }) => {
             href='/my-pokemons'
             title='Go to my pokemons page'
           >
+            <div
+              className={clsx(
+                'absolute bottom-full left-0 -translate-x-1/2 translate-y-2/3',
+                'bg-secondary-bright text-neutral-dim oval-3d px-0.5 rounded-full',
+                'text-xs font-bold h-4 w-6 text-center'
+              )}
+              style={{ fontSize: '0.625rem' }}
+            >
+              {isReady ? myPokemonNames.length : ''}
+            </div>
             <Image
               alt='My Pokemons'
               height={40}
