@@ -1,5 +1,6 @@
 'use client'
 
+import clsx from 'clsx'
 import Link from 'next/link'
 
 import { useAppIsReady, useMyPokemonNames } from '@/store/app.store'
@@ -14,7 +15,7 @@ export default function CatchedPokemonButton() {
 
   return (
     <Link href='/my-pokemons' className={styles['catched-pokemon-btn']}>
-      <div className={styles['catched-pokemon-btn__badge']}>
+      <div className={clsx(styles['catched-pokemon-btn__badge'], 'oval-3d')}>
         {isReady ? totalMyPokemon : ''}
       </div>
       Owned Pokemons

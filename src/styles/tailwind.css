@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .oval-3d::before {
+    content: '';
+    position: absolute;
+    top: 1%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 50% 0px,
+      #ffffff,
+      rgba(255, 255, 255, 0) 58%
+    );
+    filter: blur(5px);
+    z-index: 2;
+  }
+
+  .oval-3d::after {
+    --oval-3d-color-start-alpha: 0;
+    --oval-3d-color-mid-alpha: 0.2;
+
+    --oval-3d-color-start: rgba(245 237 48 / var(--oval-3d-color-start-alpha));
+    --oval-3d-color-mid: rgba(200 190 20 / var(--oval-3d-color-mid-alpha));
+    --oval-3d-color-stop: #575300;
+
+    content: '';
+    position: absolute;
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(
+      circle at 50% 30%,
+      var(--oval-3d-color-start),
+      var(--oval-3d-color-mid) 50%,
+      var(--oval-3d-color-stop) 100%
+    );
+    z-index: 2;
+  }
+}

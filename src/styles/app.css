@@ -85,7 +85,6 @@ p {
 body {
   margin: 0px;
   width: 100%;
-  padding: 0px auto;
   background: var(--color-neutral-dim);
   color: var(--color-neutral-bright);
   -webkit-font-smoothing: antialiased;

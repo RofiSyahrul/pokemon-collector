@@ -31,39 +31,6 @@
   @apply scale-150;
 }
 
-.pokemon-button__ball:before {
-  content: '';
-  position: absolute;
-  top: 1%;
-  left: 5%;
-  width: 90%;
-  height: 90%;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 50% 0px,
-    #ffffff,
-    rgba(255, 255, 255, 0) 58%
-  );
-  filter: blur(5px);
-  z-index: 2;
-}
-
-.pokemon-button__ball:after {
-  content: '';
-  position: absolute;
-  border-radius: 100%;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: radial-gradient(
-    circle at 50% 30%,
-    rgba(245, 237, 48, 0),
-    rgba(200, 190, 20, 0.2) 50%,
-    #575300 100%
-  );
-}
-
 .pokemon-button__ball__shadow {
   position: absolute;
   width: 100%;

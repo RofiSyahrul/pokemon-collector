@@ -4,23 +4,27 @@
   @apply border border-solid border-neutral-dim2 bg-neutral-dim text-neutral-bright;
 }
 
-.tab-list__glider {
-  @apply absolute left-0 h-10 rounded-full;
-  z-index: 1;
-  transition: transform 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
 .tab-list__item {
   @apply flex gap-1 items-center justify-center h-10 p-2 relative;
   @apply rounded-full hover:brightness-75 focus-visible:brightness-75;
   @apply text-sm bg-transparent select-none;
   min-width: 4rem;
   z-index: 2;
-  transition: color 0.2s ease-in;
+  transition: color 0.5s ease-in;
 }
 
 .tab-list__item[aria-selected='true'] {
-  @apply font-semibold;
+  @apply font-semibold pointer-events-none;
+}
+
+.tab-list__item__selector {
+  @apply absolute bottom-0 left-0 h-full w-full scale-0 rounded-oval;
+  z-index: -1;
+  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.tab-list__item[aria-selected='true'] .tab-list__item__selector {
+  @apply scale-100;
 }
 
 .tab-list__item__badge {
@@ -29,7 +33,6 @@
   min-width: 1rem;
   font-size: 10px;
   line-height: 1rem;
-  transition: color, background 0.2s ease-in;
 }
 
 .tab-list__item__text {
@@ -43,13 +46,19 @@
   @apply p-3 overflow-auto scrollbar-thin scrollbar-track-neutral-dim;
   @apply scrollbar-thumb-neutral-dim2 border-neutral-dim2;
   @apply border border-solid rounded w-full;
-  @apply bg-neutral-dim text-neutral-bright;
+  @apply text-neutral-bright;
   @apply absolute top-full mt-3 opacity-100;
+  background: linear-gradient(
+    45deg,
+    var(--color-neutral-dim0) 0%,
+    var(--color-neutral-dim) 50%,
+    var(--color-neutral-dim1) 100%
+  );
   transition: transform 0.2s ease-in, opacity 0.25s ease-out;
 }
 
 .tab-panel[hidden] {
-  @apply block translate-x-full opacity-0;
+  @apply block -translate-x-1/2 -translate-y-1/2 scale-0 opacity-0;
 }
 
 .tab-panel::-webkit-scrollbar-track {

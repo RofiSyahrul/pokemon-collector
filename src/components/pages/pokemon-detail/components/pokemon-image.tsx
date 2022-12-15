@@ -27,7 +27,7 @@ export default function PokemonImage({
       title={`Catch ${pokemonName}`}
       type='button'
     >
-      <div className={styles['pokemon-button__ball']}>
+      <div className={clsx(styles['pokemon-button__ball'], 'oval-3d')}>
         <div className={styles['pokemon-button__ball__shadow']} />
       </div>
       <Img

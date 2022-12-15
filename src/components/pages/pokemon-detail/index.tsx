@@ -1,10 +1,12 @@
-import type { FC } from 'react'
+import type { CSSProperties, FC } from 'react'
+import { useMemo } from 'react'
 
 import clsx from 'clsx'
 
 import { TabPanel } from '@/components/_shared/tab'
-import getPokemonBg from '@/utils/styles/get-pokemon-bg'
+import pokemonColors from '@/constants/pokemon-colors'
 import getPokemonColor from '@/utils/styles/get-pokemon-color'
+import pokemonNeutralColorInverses from '@/utils/styles/neutral-inverses'
 
 import About from './components/about'
 import Attributes from './components/attributes'
@@ -33,13 +35,25 @@ const PokemonDetailPage: FC<PokemonDetailPageProps> = ({ pokemonDetail }) => {
 
   const totalMove = moves.length
 
+  const style = useMemo(() => {
+    const firstGradientColor = pokemonColors[firstType]
+    const secondGradientColor =
+      pokemonNeutralColorInverses[firstType] === 'black'
+        ? 'var(--color-primary-bright)'
+        : 'var(--color-primary-dim)'
+
+    return {
+      '--tw-gradient-stops': `${firstGradientColor} 100px, ${secondGradientColor} 300px`,
+    }
+  }, [firstType])
+
   return (
     <main
       className={clsx(
-        'w-full h-[100vh] relative overflow-hidden',
-        getPokemonBg(firstType),
+        'w-full h-[100vh] relative overflow-hidden bg-gradient-to-b',
         getPokemonColor(firstType, 'inversed')
       )}
+      style={style as unknown as CSSProperties}
     >
       <TopFold
         pokemonFirstType={firstType}
@@ -52,6 +66,10 @@ const PokemonDetailPage: FC<PokemonDetailPageProps> = ({ pokemonDetail }) => {
           'w-full h-[calc(100%-200px)] rounded-tl-[2rem] rounded-tr-[2rem]',
           'bg-neutral-dim text-neutral-bright px-2 lg:px-6 pb-2 pt-14'
         )}
+        style={{
+          background:
+            'linear-gradient(to bottom, var(--color-neutral-dim) 100px, var(--color-neutral-dim1) 250px, var(--color-neutral-dim2) 500px)',
+        }}
       >
         <PokemonImage image={image} pokemonName={pokemonName} />
         <PokemonTab
@@ -81,8 +99,6 @@ const PokemonDetailPage: FC<PokemonDetailPageProps> = ({ pokemonDetail }) => {
             </div>
           </TabPanel>
         </PokemonTab>
-        {/* <div className='flex items-center justify-center w-full mt-2 absolute bottom-2'>
-        </div> */}
       </section>
       <CatchResultPopups
         id={id}

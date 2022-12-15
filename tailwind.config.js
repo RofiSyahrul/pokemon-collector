@@ -1,3 +1,7 @@
+const flattenColorPalette =
+  require('tailwindcss/lib/util/flattenColorPalette').default
+const withAlphaVariable =
+  require('tailwindcss/lib/util/withAlphaVariable').default
 const plugin = require('tailwindcss/plugin')
 
 const pokemonColors = require('./src/constants/pokemon-colors')
@@ -34,7 +38,7 @@ const colors = {
 }
 
 /** @param {import('tailwindcss/types/config').PluginAPI} param */
-function createPlugin({ addComponents, addVariant, e }) {
+function createPlugin({ addComponents, addVariant, e, matchUtilities, theme }) {
   addComponents({
     '.btn': {
       display: 'flex',
@@ -103,6 +107,11 @@ function createPlugin({ addComponents, addVariant, e }) {
         },
       },
     },
+
+    '.rounded-oval': {
+      '--tw-oval-height': '50%',
+      'border-radius': '50% / var(--tw-oval-height)',
+    },
   })
 
   addVariant('current-page', ({ modifySelectors, separator }) => {
@@ -118,6 +127,56 @@ function createPlugin({ addComponents, addVariant, e }) {
       return `details[open] .${baseClassName}`
     })
   })
+
+  matchUtilities(
+    {
+      'rounded-oval-h': value => ({
+        '--tw-oval-height': value,
+      }),
+    },
+    { values: theme('height') }
+  )
+
+  matchUtilities(
+    {
+      'oval-3d-color-start': value => ({
+        '&::after': withAlphaVariable({
+          color: value,
+          property: '--oval-3d-color-start',
+          variable: '--oval-3d-color-start-alpha',
+        }),
+      }),
+      'oval-3d-color-mid': value => ({
+        '&::after': withAlphaVariable({
+          color: value,
+          property: '--oval-3d-color-mid',
+          variable: '--oval-3d-color-mid-alpha',
+        }),
+      }),
+      'oval-3d-color-stop': value => ({
+        '&::after': {
+          '--oval-3d-color-stop': value,
+        },
+      }),
+    },
+    { values: flattenColorPalette(theme('colors')) }
+  )
+
+  matchUtilities(
+    {
+      'oval-3d-color-start-alpha': value => ({
+        '&::after': {
+          '--oval-3d-color-start-alpha': value,
+        },
+      }),
+      'oval-3d-color-mid-alpha': value => ({
+        '&::after': {
+          '--oval-3d-color-mid-alpha': value,
+        },
+      }),
+    },
+    { values: theme('opacity') }
+  )
 }
 
 /** @type {import('tailwindcss').Config} */

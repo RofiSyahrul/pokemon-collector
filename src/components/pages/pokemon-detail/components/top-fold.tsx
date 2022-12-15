@@ -49,7 +49,8 @@ const TopFold: FC<TopFoldProps> = ({
       </div>
       <CatchButton
         className={clsx(
-          'btn rounded-full bg-opacity-80 h-12 hover:shadow-lg',
+          'btn rounded-oval bg-opacity-80 h-12 hover:shadow-lg relative oval-3d',
+          'oval-3d-color-stop-transparent',
           getPokemonBg(pokemonFirstType, 'inversed'),
           getPokemonColor(pokemonFirstType)
         )}
